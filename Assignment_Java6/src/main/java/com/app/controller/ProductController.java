@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +25,14 @@ public class ProductController {
 	@RequestMapping("list")
 	public String list(Model model, @RequestParam("cid") Optional<String> cid) {
 		if(cid.isPresent()) {
+			
 			List<Product> list = productService.findByCategoryId(cid.get());
 			model.addAttribute("items",list);
+			model.addAttribute("cname", cid.get());
 		}else {
 			List<Product> list = productService.findAll();
 			model.addAttribute("items", list);
 		}
-		
 		return "product/list";
 	}
 }

@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>List Product</title>
 </head>
-<body>
-	<h1>List product</h1>
+<body class="main-layout inner_posituong computer_page w3-container">
+	<div class="w3-container w3-text-grey w3-margin-top">
+		<div class="w3-leftbar w3-border-red w3-text-red w3-padding-right"
+			style="font-weight: bold;">
+			<p>
+				<b class="w3-margin-left">[[${cname}]]</b>
+			</p>
+		</div>
+	</div>
+	<br>
+	<!-- Product grid -->
+	<div class="w3-row w3-row-padding">
+
+		<div class="w3-col l3 s6" th:each="item: ${items}">
+			<div class="w3-container w3-card w3-margin-bottom"
+				style="height: 330px;">
+				<div class="w3-display-container w3-padding-16">
+					<img th:src="@{|/images/${item.image}|}" style="width: 100%">
+					<div class="w3-display-middle w3-display-hover">
+						<a th:href="@{|/product/${item.id}|}" } class="w3-button w3-green">More
+							details <i class="fa-solid fa-eye"></i>
+						</a>
+					</div>
+					<p style ="text-align : center;">
+					[[${item.name}]]<br>
+					<b>[[${item.price}]]</b>
+				</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 </body>
 </html>

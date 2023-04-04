@@ -23,7 +23,8 @@
 						<div class="full">
 							<div class="center-desk">
 								<div class="logo">
-									<a th:href="@{|/|}"><img th:src="@{|/images/logo.png|}" alt="#" /></a>
+									<a th:href="@{|/|}"><img th:src="@{|/images/logo.png|}"
+										alt="#" /></a>
 								</div>
 							</div>
 						</div>
@@ -45,22 +46,32 @@
 
 									<li class="nav-item dropdown"><a
 										class="nav-link dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false"> Shop
-									</a>
+										data-bs-toggle="dropdown" aria-expanded="false"> Shop </a>
 										<ul class="dropdown-menu">
-											<li th:each ="c:${cates}"><a class="dropdown-item" th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
+											<li th:each="c:${cates}"><a class="dropdown-item"
+												th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
 											<li><hr class="dropdown-divider"></li>
 											<li><a class="dropdown-item" href="#">Best seller</a></li>
 										</ul></li>
 
 									<li class="nav-item"><a class="nav-link"
 										th:href="@{|/contact|}">Contact Us</a></li>
-										<li class="nav-item"><a class="nav-link"
-										th:href="@{|/product|}">Product</a></li>
 									<li class="nav-item d_none"><a class="nav-link" href="#"><i
 											class="fa fa-search" aria-hidden="true"></i></a></li>
 									<li class="nav-item d_none"><a class="nav-link" href="#">Login</a>
 									</li>
+
+									<li class="nav-item d_none"><a th:href="@{|/cart/view|}" 
+										class="btn w3-yellow position-relative nav-link">
+											<i class="fa fa-shopping-cart fa-sm"></i> <span
+											class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red w-50">
+												{{cart.count}}</span>
+												
+											<!-- tong don gia la {{cart.amount | number:2 }} -->
+									</a></li>
+
+
+
 								</ul>
 							</div>
 						</nav>

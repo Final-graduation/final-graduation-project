@@ -27,6 +27,8 @@
 						<a th:href="@{|/product/${item.id}|}" } class="w3-button w3-green">More
 							details <i class="fa-solid fa-eye"></i>
 						</a>
+						<a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}" class="w3-button w3-green">Add to cart <i class="fa-solid fa-eye"></i>
+						</a>
 					</div>
 					<p style ="text-align : center;">
 					[[${item.name}]]<br>

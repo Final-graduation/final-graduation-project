@@ -12,5 +12,7 @@ public interface ProductService {
 
 	List<Product> findByCategoryId(String cid);
 
+	Product findById(Integer id);
+
 
 }

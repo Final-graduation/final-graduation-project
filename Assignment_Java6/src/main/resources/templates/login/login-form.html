@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+	<h1>abc</h1>
+	<form action = "/login" method ="post">
+	<p>[[${message}]]</p>
+	Username :
+	<input name ="username" type = "text"/><br>
+	Password : <input name ="password" type="password"/><br>
+	<button>Login</button>
+	<a th:href="@{|/logout|}">Logout</a>
+	</form>
+</body>
+</html>

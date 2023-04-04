@@ -10,20 +10,24 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Authorities", uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"Username", "Roleid"})
+		@UniqueConstraint(columnNames = {"username", "roleid"})
 })
 public class Authority  implements Serializable{
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@ManyToOne @JoinColumn(name = "Username")
+	@ManyToOne @JoinColumn(name = "username")
 	private Account account;
-	@ManyToOne  @JoinColumn(name = "Roleid")
+	@ManyToOne  @JoinColumn(name = "roleid")
 	private Role role;
 }

@@ -1,7 +1,9 @@
 package com.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -35,8 +37,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.app.entity.Account;
 import com.app.service.AccountService;
-
-
+import com.app.service.AuthorityService;
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +49,9 @@ public class SecurityConfiguration {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AuthorityService authorityService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -82,25 +86,26 @@ public class SecurityConfiguration {
 
 	@Bean
 	public InMemoryUserDetailsManager userDetailsManager() {
-	//create a user account
-			UserDetails user = User.withUsername("user")
-					.password(passwordEncoder().encode("password"))
-					.roles("USER")
-					.build();
-			//create a admin account
-			UserDetails admin = User.withUsername("admin")
-					.password(passwordEncoder().encode("password"))
-					.roles("ADMIN")
-					.build();
-			
-			
-			//tao vong lap roi add vo 
-			Collection<UserDetails> users = new ArrayList<>() ;
+
+		List<Account> list = accountService.findAll();
+		
+		Collection<UserDetails> users = new ArrayList<>();
+
+		for (int i = 0; i < list.size(); i++) {
+			// method findRoles return roles of username in the loop
+			List<String> roles = authorityService.findRoles(list.get(i).getUsername());
+
+			// cast list to array
+			String[] r = new String[roles.size()];
+			roles.toArray(r);
+
+			UserDetails user = User.withUsername(list.get(i).getUsername())
+					.password(passwordEncoder().encode(list.get(i).getPassword())).roles(r).build();
 			users.add(user);
-			users.add(admin);
-			
-			return new InMemoryUserDetailsManager(users);
+		}
+		return new InMemoryUserDetailsManager(users);
 	}
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

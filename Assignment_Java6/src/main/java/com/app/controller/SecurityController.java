@@ -39,7 +39,14 @@ public class SecurityController {
 	}
 	@ResponseBody
 	@GetMapping("/admin")
-	public String admin() {
-		return "Hello, Admin!";
+	public String admin() {	
+		return "Hello, Staff!";
 	}
+	
+	@ResponseBody
+	@GetMapping("/rest/authorities")
+	public String abc(){
+		return "Hello Director";
+	}
+	
 }

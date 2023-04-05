@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>abc</h1>
-	<form action = "/login" method ="post">
+	<form th:action = "@{|/login|}" method ="post">
 	<p>[[${message}]]</p>
 	Username :
 	<input name ="username" type = "text"/><br>

@@ -80,7 +80,7 @@ public class SecurityConfiguration {
 				.usernameParameter("username").passwordParameter("password").and().logout().logoutUrl("/logout")// link
 																												// th:href="@{|/logout|}"
 				.logoutSuccessUrl("/logout/success")// logout xong di dau
-				.and().exceptionHandling().accessDeniedPage("/security/unauthoried");// khong co quyen vao trang do
+				.and().exceptionHandling().accessDeniedPage("/unauthoried");// khong co quyen vao trang do
 		return http.build();
 	}
 
@@ -100,7 +100,8 @@ public class SecurityConfiguration {
 			roles.toArray(r);
 
 			UserDetails user = User.withUsername(list.get(i).getUsername())
-					.password(passwordEncoder().encode(list.get(i).getPassword())).roles(r).build();
+					.password(passwordEncoder().encode(list.get(i).getPassword()))
+					.roles(r).build();
 			users.add(user);
 		}
 		return new InMemoryUserDetailsManager(users);

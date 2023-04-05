@@ -32,6 +32,13 @@ public class SecurityController {
 		model.addAttribute("message","Logout success!");
 		return "forward:/login/form";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/unauthoried")
+	public String unauthoried() {
+		return "You have no permittion to use this page!";
+	}
+	
 	@ResponseBody
 	@GetMapping("/user")
 	public String user() {

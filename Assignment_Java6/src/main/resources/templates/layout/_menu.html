@@ -58,16 +58,49 @@
 										th:href="@{|/contact|}">Contact Us</a></li>
 									<li class="nav-item d_none"><a class="nav-link" href="#"><i
 											class="fa fa-search" aria-hidden="true"></i></a></li>
-									<li class="nav-item d_none"><a class="nav-link" href="#">Login</a>
+
+
+									<li class="nav-itemdropdown" sec:authorize="isAuthenticated()">
+										<a class="nav-link dropdown-toggle" href="#" role="button"
+										data-bs-toggle="dropdown" aria-expanded="false"> My
+											Account </a>
+										<ul class="dropdown-menu">
+											<!-- <li sec:authentication="name"></li>
+											<li sec:authentication="principal.authorities"></li> -->
+
+											<li>
+												<div>
+													<img th:src="@{|/images/${image}|}"
+														style="max-width: 70px;" /> <b th:text="${name}"></b>
+
+												</div>
+
+											</li>
+											<li><a class="dropdown-item" th:href="@{|/cart/view|}">My
+													order</a></li>
+											<li><a class="dropdown-item" th:href="@{|/logout|}">Log
+													out</a></li>
+
+											<li sec:authorize="hasAnyRole('STAF','DIRE')"><a
+												class="dropdown-item" th:href="@{|/admin/home/index|}">Administration</a></li>
+
+										</ul>
 									</li>
 
-									<li class="nav-item d_none"><a th:href="@{|/cart/view|}" 
-										class="btn w3-yellow position-relative nav-link">
-											<i class="fa fa-shopping-cart fa-sm"></i> <span
+
+
+
+
+									<li class="nav-item d_none" sec:authorize="!isAuthenticated()"><a
+										class="nav-link" th:href="@{|/login/form|}">Login</a></li>
+
+
+
+									<li class="nav-item d_none"><a th:href="@{|/cart/view|}"
+										class="btn w3-yellow position-relative nav-link"> <i
+											class="fa fa-shopping-cart fa-sm"></i> <span
 											class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red w-50">
-												{{cart.count}}</span>
-												
-											<!-- tong don gia la {{cart.amount | number:2 }} -->
+												{{cart.count}}</span> <!-- tong don gia la {{cart.amount | number:2 }} -->
 									</a></li>
 
 

@@ -1,4 +1,4 @@
-package com.app;
+package com.app.security;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +75,7 @@ public class SecurityConfiguration {
 //				.httpBasic(Customizer.withDefaults()).build();
 				.formLogin().loginPage("/login/form")// dia chi url
 				.loginProcessingUrl("/login")// action form login
-				.defaultSuccessUrl("/login/success", false)// trang sau khi dang nhap thanh cong
+				.defaultSuccessUrl("/", false)// trang sau khi dang nhap thanh cong
 				.failureUrl("/login/error")// dia chi url khi co loi
 				.usernameParameter("username").passwordParameter("password").and().logout().logoutUrl("/logout")// link
 																												// th:href="@{|/logout|}"

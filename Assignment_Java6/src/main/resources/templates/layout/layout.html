@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:fragment="dynamic(title,view)" 
+	th:fragment="dynamic(title,view)"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="utf-8">
@@ -36,9 +36,16 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
 	media="screen">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-colors-2019.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-colors-2021.css">
+<script src="https://kit.fontawesome.com/bf4e96c7b9.js"
+	crossorigin="anonymous"></script>
 </head>
-<body ng-app="cart" ng-controller ="cart-ctrl">
+<body ng-app="cart" ng-controller="cart-ctrl">
 	<!-- loader  -->
 	<div class="loader_bg">
 		<div class="loader">
@@ -71,7 +78,7 @@
 		integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
 		crossorigin="anonymous">
   </script>
-  <script th:src="@{|/js/cart.js|}"></script>
+	<script th:src="@{|/js/cart.js|}"></script>
 
 </body>
 </html>

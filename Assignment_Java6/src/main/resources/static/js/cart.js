@@ -8,10 +8,12 @@ app.controller("cart-ctrl",function($scope,$http){
 		add(id){
 			let item = this.items.find(item=> item.id ==id);
 			if(item){
+				alert("Success!")
 				item.qty ++;
 				this.saveToLocalStorage();
 			}else{
 				$http.get(`/rest/products/${id}`).then(resp =>{
+					alert("Success!")
 					resp.data.qty = 1;
 					this.items.push(resp.data);
 					this.saveToLocalStorage();
@@ -63,4 +65,34 @@ app.controller("cart-ctrl",function($scope,$http){
 		
 	}
 	$scope.cart.loadFromLocalStorage();
+	
+	$scope.order ={
+		createDate: new Date(),
+		address:"",
+		sdt:"",
+		account:{
+			username:$("#username").text()
+		},
+		get orderDetails(){
+			return $scope.cart.items.map(item =>{
+				return{
+					product : {id: item.id},
+					price : item.price,
+					quantity :item.qty
+				}
+			});
+		},
+		purchase(){
+			let order = angular.copy(this);
+			$http.post("/rest/orders",order).then(resp=>{
+				alert("Success!");
+				$scope.cart.clear();
+				location.href="/order/detail/" + resp.data.id;
+			}).catch(error =>{
+				alert("Please try again!")
+				console.log(error)
+			})
+		}
+		
+	}
 })

@@ -28,10 +28,10 @@ public class ProductController {
 	@RequestMapping("list")
 	public String list(Model model, @RequestParam("cid") Optional<String> cid) {
 		if(cid.isPresent()) {
-			
 			List<Product> list = productService.findByCategoryId(cid.get());
 			model.addAttribute("items",list);
-			model.addAttribute("cname", cid.get());
+			if(list.size()!=0)
+			model.addAttribute("cname",list.get(0).getCategory().getName());
 		}else {
 			List<Product> list = productService.findAll();
 			model.addAttribute("items", list);

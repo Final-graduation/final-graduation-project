@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>My orders</title>
 </head>
-<body>
-	<h1>List order</h1>
+<body class="main-layout inner_posituong computer_page">
+	<div class="w3-container w3-text-grey w3-margin-top">
+		<div class="w3-leftbar w3-text-grey w3-padding-right">
+			<p>
+				<b class="w3-margin-left"> My orders</b>
+			</p>
+		</div>
+	</div>
+	<!-- Layout -->
+	<div class="w3-row-padding">
+		<div class="w3-col m3 s12">
+			<div class="w3-card w3-section">
+				<header class="w3-2021-inkwell">
+					<h4 class="w3-text-white w3-center"><b>Filter</b></h4>
+				</header>
+
+
+				<form action="/site/xemtheongay" method="post" class="w3-container">
+					<span>Date </span> <input
+						class="w3-input w3-bar-item w3-border w3-round-large" name="ngay"
+						value="${ngay}" type="date" onchange="this.form.submit()">
+					<label>Search</label> <input
+						class="w3-input w3-border w3-round-large" type="text">
+				</form>
+				<br>
+			</div>
+		</div>
+		<div class="w3-col m9 s12 w3-margin-top">
+			<div class="table-responsive w3-margin-bottom">
+				<table class="w3-table-all w3-card w3-animate-opacity">
+					<thead>
+						<tr class="w3-2021-inkwell">
+							<th>No</th>
+							<th>OrderId</th>
+							<th>CreateDate</th>
+							<th>Address</th>
+							<th>Phone</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tr th:each="order,state : ${orders}">
+						<td>[[${state.index+1}]]</td>
+						<td>[[${order.id}]]</td>
+						<td>[[${order.createDate}]]</td>
+						<td>[[${order.address}]]</td>
+						<td>[[${order.sdt}]]</td>
+						<td><a th:href="@{|/order/detail/${order.id}|}">Details</a></td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- EndLayout -->
 </body>
 </html>

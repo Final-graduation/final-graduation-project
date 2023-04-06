@@ -7,37 +7,73 @@
 </head>
 <body class="main-layout inner_posituong computer_page">
 	<div class="w3-container w3-text-grey w3-margin-top">
-		<div class="w3-leftbar w3-border-red w3-text-red w3-padding-right"
-			style="font-weight: bold;">
+		<div class="w3-leftbar w3-text-grey w3-padding-right">
 			<p>
-				<b class="w3-margin-left">[[${cname}]]</b>
+				<b class="w3-margin-left"> Shop | [[${cname}]]</b>
 			</p>
 		</div>
 	</div>
-	<br>
-	<!-- Product grid -->
-	<div class="w3-row w3-row-padding">
+	<!-- Layout -->
 
-		<div class="w3-col l3 s6" th:each="item: ${items}">
-			<div class="w3-container w3-card w3-margin-bottom"
-				style="height: 330px;">
-				<div class="w3-display-container w3-padding-16">
-					<img th:src="@{|/images/${item.image}|}" style="width: 100%">
-					<div class="w3-display-middle w3-display-hover">
-						<a th:href="@{|/product/${item.id}|}" } class="w3-button w3-green">More
-							details <i class="fa-solid fa-eye"></i>
-						</a>
-						<a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}" class="w3-button w3-green">Add to cart <i class="fa-solid fa-eye"></i>
-						</a>
+	<!-- Layout -->
+	<div class="w3-row-padding">
+		<div class="w3-col m3 s12">
+			<div class="w3-card w3-section">
+				<header class="w3-2021-inkwell">
+					<h4 class="w3-text-white w3-center">
+						<b>Filter</b>
+					</h4>
+				</header>
+				<form action="/site/xemtheongay" method="post" class="w3-container">
+					<label>Range</label> 
+					<div class ="w3-bar">
+					<input
+						class="w3-input w3-border w3-round-large w3-bar-item" type="number" style ="width :65px;"/>
+						<b class="w3-bar-item">-</b>
+						<input
+						class="w3-input w3-border w3-round-large w3-bar-item" type="number" style ="width :65px;"/>
+						<button class="w3-button w3-round-large w3-green w3-bar-item w3-margin-left">Filter</button>
 					</div>
-					<p style ="text-align : center;">
-					[[${item.name}]]<br>
-					<b>[[${item.price}]]</b>
-				</p>
-				</div>
-				
+					<label>Search</label> <input
+						class="w3-input w3-border w3-round-large" type="text"/>
+				</form>
+				<br>
 			</div>
 		</div>
+		<div class="w3-col m9 s12 w3-margin-top">
+
+			<!-- Product grid -->
+			<div class="w3-row w3-row-padding">
+
+				<div class="w3-col l3 s6" th:each="item: ${items}">
+					<div class=" w3-card w3-margin-bottom"
+						style="height: 240px;">
+						<div class="w3-display-container w3-padding-16 w3-center">
+							<img th:src="@{|/images/${item.image}|}" style="max-width: 80%" >
+							<div class="w3-display-middle w3-display-hover">
+								<a th:href="@{|/product/${item.id}|}"
+									} class="w3-button w3-green">More details <i
+									class="fa-solid fa-eye"></i>
+								</a> <a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}"
+									class="w3-button w3-green">Add to cart <i
+									class="fa-solid fa-eye"></i>
+								</a>
+							</div>
+							<p style="text-align: center;">
+								[[${item.name}]]<br> <b>[[${item.price}]]</b>
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- End Product Grid -->
+
+		</div>
 	</div>
+
+
+	<!-- And layout -->
+
 </body>
 </html>

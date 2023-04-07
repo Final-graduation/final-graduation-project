@@ -1,0 +1,43 @@
+
+<section>
+	<div class="w3-bar">
+		<form action="/admin/report/xemtheongay" method="post">
+			<i class="fa-solid fa-filter fa-2x w3-bar-item"></i> <input
+				class="w3-input w3-bar-item w3-border w3-round" name="ngay"
+				value="${ngay}" type="date" onchange="this.form.submit()">
+		</form>
+	</div>
+
+	<br>
+
+	<div class="table-responsive w3-margin-bottom w3-card">
+		<table class="w3-table-all w3-card w3-animate-opacity ">
+			<thead>
+				<tr class="w3-2021-inkwell">
+					<th>No</th>
+					<th>Username</th>
+					<th>Phone number</th>
+					<th>Address</th>
+					<th>Quantity</th>
+					<th>Total</th>
+					<th>Order Date</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			</tbody>
+			<tr>
+				<td>${no}</td>
+				<td>${order.account.username}</td>
+				<td>${order.sdt}</td>
+				<td>${order.address}</td>
+				<td>${order.soluong}</td>
+				<td>${order.tongtien}</td>
+				<td>${order.ordercreatedate}</td>
+				<td><a href="/admin/report/donhang/${order.orderid}">Chi
+						tiet</a></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

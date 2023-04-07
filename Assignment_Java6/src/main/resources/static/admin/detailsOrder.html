@@ -1,0 +1,33 @@
+
+<body>
+
+
+
+	<div class="table-responsive w3-margin-bottom w3-margin-top w3-card">
+		<table class="w3-table-all w3-card w3-animate-opacity">
+			<thead>
+				<tr class="w3-2021-inkwell">
+					<th>No</th>
+					<th>Name</th>
+					<th>Photo</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${no}</td>
+					<td>${detail.product.productname}</td>
+					<td><img src="/images/${detail.product.productimage}"
+						style="max-width: 100px;" alt=""></td>
+					<td>${detail.quantity}</td>
+					<td>${detail.orderdetailprice}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<a href="/admin/report/donhang" class="w3-button w3-margin-bottom">Quay
+		láº¡i</a>
+
+</body>
+</html>

@@ -5,28 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.entity.Product;
-import com.app.service.ProductService;
+import com.app.entity.Category;
+
+import com.app.service.CategoryService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/products")
-public class ProductRestController {
-	
+@RequestMapping("/rest/categories")
+public class CategoryRestController {
+
 	@Autowired
-	ProductService productService;
-	
-	@GetMapping("{id}")
-	public Product getOne(@PathVariable("id") Integer id) {
-		return productService.findById(id);
-	}
-	
+	CategoryService categoryService;
+
 	@GetMapping()
-	public List<Product> getAll(){
-		return productService.findAll();
+	public List<Category> getAll() {
+		return categoryService.findAll();
 	}
 }

@@ -30,4 +30,9 @@ public class HomeController {
 	public String product() {
 		return "layout/product";
 	}
+	
+	@RequestMapping("/admin")
+	public String admin() {
+		return "redirect:/admin/index.html";
+	}
 }

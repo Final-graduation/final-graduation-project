@@ -1,0 +1,110 @@
+
+<section>
+	<div class="w3-container w3-animate-opacity">
+		<div class="w3-card">
+			<div class="w3-container w3-2021-inkwell w3-margin-top w3-padding">
+				<h2>Edit Form</h2>
+			</div>
+			<form class="w3-container" action="/admin/product/edit" method="post"
+				enctype="multipart/form-data">
+
+				<div class="row">
+					<div class="col-4 mt-3">
+						<img src="/images/${p.productimage}" width="220" height="190"
+							id="selected">
+						<div>
+							<label for="image_uploads">Choose images to upload (PNG,
+								JPG)</label> <input type="file" id="image_uploads" name="attach"
+								accept=".jpg, .jpeg, .png" onchange="readURL(this);" /> <input
+								name="tenImage" value="${p.productimage}" type="hidden">
+						</div>
+
+					</div>
+					<div class="col-8 mt-2">
+
+
+						<p>
+							<label>ID</label> <input class="w3-input" value="${p.productid}"
+								name="productid" type="number" required>
+						</p>
+						<p>
+							<label>Tên sản phẩm</label> <input class="w3-input"
+								value="${p.productname}" name="productname" type="text"
+								required="true">
+						</p>
+						<p>
+							<label>Giá sản phẩm</label> <input class="w3-input"
+								value="${p.productprice}" name="productprice" type="text"
+								required="true">
+						</p>
+
+						<p>
+							<label>Ngày tạo</label> <input class="w3-input"
+								value="${p.productcreatedate}" name="productcreatedate"
+								type="date" required>
+						</p>
+						<p>
+							<select class="w3-select mt-3" name="cName" required="true">
+								<option value="${p.category.categoryid}" selected>${p.category.categoryname}</option>
+								<c:forEach var="category" items="${categories}">
+									<option value="${category.categoryid}">${category.categoryname}</option>
+								</c:forEach>
+							</select>
+						</p>
+						<c:choose>
+
+							<c:when test="${p.available ==true }">
+								<p>
+									<input class="w3-radio" type="radio" name="active" value="true"
+										checked required> <label>Available</label> <input
+										class="w3-radio  ms-5" type="radio" name="active"
+										value="false" required> <label>Unavailable</label>
+								</p>
+							</c:when>
+
+							<c:when test="${p.available == false }">
+								<p>
+									<input class="w3-radio" type="radio" name="active" value="true"
+										required> <label>Available</label> <input
+										class="w3-radio  ms-5" type="radio" name="active"
+										value="false" checked required> <label>Unavailable</label>
+								</p>
+							</c:when>
+						</c:choose>
+
+						<p>
+							<button class="w3-button w3-red">Edit</button>
+							<a class="w3-button w3-red"
+								onclick="document.getElementById('thongBaoXoa').style.display='block'">Delete</a>
+							<a href="/admin/product/edit/${p.productid}"
+								class="w3-button w3-red">Reset</a>
+						</p>
+
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+
+
+	<!-- thongBaoXoa -->
+	<div id="thongBaoXoa" class="w3-modal">
+		<div class="w3-modal-content w3-animate-top"
+			style="padding: 32px; width: 700px;">
+			<div class="w3-container w3-white w3-center">
+				
+					<i
+						onclick="document.getElementById('thongBaoXoa').style.display='none'"
+						class="fa fa-remove w3-right w3-button w3-transparent w3-xlarge"></i>
+					<h2 class="w3-wide">Bạn muốn xóa sản phẩm này ?</h2>
+					<p><b> Không thể khôi phục sản phẩm</b></p>
+					<a href="/admin/product/delete/${p.productid}" class="w3-button w3-red w3-margin-bottom">Delete</a>
+					<button type="button" class="w3-button w3-blue w3-margin-bottom"
+						onclick="document.getElementById('thongBaoXoa').style.display='none'">Cancel</button>
+		
+			</div>
+		</div>
+	</div>
+</section>

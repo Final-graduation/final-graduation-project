@@ -31,8 +31,10 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat">
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 <style>
 .w3-sidebar a {
 	font-family: "Roboto", sans-serif
@@ -43,26 +45,57 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
 }
 </style>
 </head>
-<body class="w3-light-grey w3-content" style="max-width: 1600px" ng-app="admin-app">
+<body class="w3-light-grey w3-content" style="max-width: 1600px"
+	ng-app="admin-app">
+	<!-- NavBar -->
+	<nav class="navbar navbar-expand-lg w3-2021-inkwell sticky-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><a ng-href="/"><img
+					ng-src="/images/logo.png" alt="#" /></a></a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarText"
+				aria-controls="navbarText" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#"><i class="fa-brands fa-facebook fa-2x" style="color :white;"></i></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><i class="fa-brands fa-tiktok fa-2x" style="color :white;"></i></a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#"><i class="fa-brands fa-twitter fa-2x" style="color :white;"></i></a>
+					</li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search">
+					<button class="btn btn-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+
+
+
+	<!-- EndNavBar -->
 	<!-- Sidebar/menu -->
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
-		style="z-index: 3; width: 300px;" id="mySidebar">
+		style="z-index: 3; width: 250px;" id="mySidebar">
 
 		<div class="w3-bar-block ms-2">
 			<a href="#/!" class="w3-bar-item w3-button w3-padding tablink"><i
-				class="fa fa-eye fa-lg w3-margin-right"></i><b>Product</b></a> 
-				
-			<a href="#!listCustomer" class="w3-bar-item w3-button w3-padding tablink"><i
-				class="fa fa-eye fa-lg w3-margin-right"></i><b>Customer</b></a>
-			<a href="#!listOrder" class="w3-bar-item w3-button w3-padding tablink"><i
-				class="fa fa-eye fa-lg w3-margin-right"></i><b>Order</b></a>
-			<a href="#!addCategory" class="w3-bar-item w3-button w3-padding tablink"> <i
-				class="fa fa-plus fa-lg w3-margin-right"></i><b>Add Category</b></a> 
-			<a href="#!addItem" class="w3-bar-item w3-button w3-padding tablink"> <i
-				class="fa fa-plus fa-lg w3-margin-right"></i><b>Add item</b></a> 
-				
-			<a href="#!summary"
+				class="fa-solid fa-store w3-margin-right"></i><b>Product</b></a> <a
+				href="#!listCustomer"
 				class="w3-bar-item w3-button w3-padding tablink"><i
+				class="fa-solid fa-users w3-margin-right"></i><b>Customer</b></a> <a
+				href="#!listOrder" class="w3-bar-item w3-button w3-padding tablink"><i
+				class="fa-solid fa-bag-shopping w3-margin-right"></i><b>Order</b></a> <a
+				href="#!addCategory"
+				class="w3-bar-item w3-button w3-padding tablink"><i
+				class="fa-solid fa-diagram-project w3-margin-right"></i><b>Category</b></a>
+			<a href="#!summary" class="w3-bar-item w3-button w3-padding tablink"><i
 				class="fas fa-chart-line fa-lg w3-margin-right "></i><b>Summary</b></a>
 
 			<div class="w3-padding-64">
@@ -79,7 +112,7 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
 		id="myOverlay"></div>
 
 	<!-- !PAGE CONTENT! -->
-	<div class="w3-main" style="margin-left: 300px">
+	<div class="w3-main" style="margin-left: 250px">
 		<div ng-view></div>
 	</div>
 
@@ -117,5 +150,16 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
 		
 	</script>
 	<script type="text/javascript" src="/js/admin.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+		crossorigin="anonymous">
+  </script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+		integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+		crossorigin="anonymous">
+  </script>
 </body>
 </html>

@@ -1,13 +1,30 @@
-<section>
+<section class="w3-animate-opacity">
+	<div class="w3-container">
+		<p>
+		<h3>
+			<b>List Categories</b>
+		</h3>
+		</p>
+		<form action="/admin/product/timkiem" method="post">
+			<div class="w3-bar">
+				<button class="w3-button  w3-hover-red">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+				<input type="text" name="keyWords"
+					class="w3-input w3-bar-item w3-round" width="200px;"
+					placeholder="Type name item...">
+			</div>
+		</form>
+
+	</div>
+	<br>
 	<div class="w3-container w3-2021-inkwell w3-padding">
 		<h2>Category</h2>
 	</div>
 	<form class="w3-container">
-		<br> <label>ID</label>
-		<input path="categoryid" class="w3-input" type="text" required/>
-		<br> <label>Name</label>
-		<input path="categoryname" class="w3-input" type="text" required />
-		<br>
+		<br> <label>ID</label> <input path="categoryid" class="w3-input"
+			type="text" required /> <br> <label>Name</label> <input
+			path="categoryname" class="w3-input" type="text" required /> <br>
 		<div class="mb-3">
 			<button formaction="/admin/btnSaveLoaiHang" class="w3-button w3-red">Create</button>
 			<a href="/admin/them/loaihang" class="w3-button w3-red">Reset</a>

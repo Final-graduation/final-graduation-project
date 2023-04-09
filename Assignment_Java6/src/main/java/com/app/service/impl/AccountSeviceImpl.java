@@ -29,5 +29,11 @@ public class AccountSeviceImpl implements AccountService {
 		return adao.findAll();
 	}
 
+	@Override
+	public List<Account> getAdministrators() {
+		// TODO Auto-generated method stub
+		return adao.getAdministrators();
+	}
+
 	
 }

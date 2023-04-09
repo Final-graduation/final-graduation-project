@@ -12,11 +12,12 @@ import com.app.entity.Product;
 
 @Repository
 public interface ProductDAO extends JpaRepository<Product, Integer> {
-	
-//	@Query("SELECT p from product p where p.category.id=?1")
-//	List<Product> findByCategoryId(String cid);
 
-	//xem san pham theo loai
-		@Query(value = "select p from Product p where p.category.id = ?1 ")
-		public List<Product> findByCategoryId(String categoryId);
+	@Query(value = "select p from Product p where p.category.id = ?1 ")
+	public List<Product> findByCategoryId(String categoryId);
+
+	@Query(value = "select p from Product p where p.name like ?1 and p.category.id = ?2 ")
+	public List<Product> findByNameAndCatogory(String name, String id);
+
+	List<Product> findByPriceBetween(double minPrice, double maxPrice);
 }

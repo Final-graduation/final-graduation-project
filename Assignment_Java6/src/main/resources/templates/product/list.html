@@ -24,19 +24,23 @@
 						<b>Filter</b>
 					</h4>
 				</header>
-				<form action="/site/xemtheongay" method="post" class="w3-container">
-					<label>Range</label> 
-					<div class ="w3-bar">
-					<input
-						class="w3-input w3-border w3-round-large w3-bar-item" type="number" style ="width :65px;"/>
-						<b class="w3-bar-item">-</b>
-						<input
-						class="w3-input w3-border w3-round-large w3-bar-item" type="number" style ="width :65px;"/>
-						<button class="w3-button w3-round-large w3-green w3-bar-item w3-margin-left">Filter</button>
+				<div class="w3-container">
+					<label>Range</label>
+					<form th:action="@{|/product/range|}" method="post">
+					<div class="w3-bar">
+						<input name="from" class="w3-input w3-border w3-round-large w3-bar-item"
+							type="number" style="width: 65px;" /> <b class="w3-bar-item">-</b>
+						<input name="to" class="w3-input w3-border w3-round-large w3-bar-item"
+							type="number" style="width: 65px;" />
+						<button
+							class="w3-button w3-round-large w3-green w3-bar-item w3-margin-left">Filter</button>
 					</div>
+					</form>
+				<form th:action="@{|/product/search|}" method="post">
 					<label>Search</label> <input
-						class="w3-input w3-border w3-round-large" type="text"/>
+						class="w3-input w3-border w3-round-large" type="text" name="name" />
 				</form>
+				</div>
 				<br>
 			</div>
 		</div>
@@ -46,17 +50,16 @@
 			<div class="w3-row w3-row-padding">
 
 				<div class="w3-col l3 s6" th:each="item: ${items}">
-					<div class=" w3-card w3-margin-bottom"
-						style="height: 240px;">
+					<div class=" w3-card w3-margin-bottom" style="height: 240px;">
 						<div class="w3-display-container w3-padding-16 w3-center">
-							<img th:src="@{|/images/${item.image}|}" style="max-width: 80%" >
+							<img th:src="@{|/images/${item.image}|}" style="max-width: 80%">
 							<div class="w3-display-middle w3-display-hover">
-								<a th:href="@{|/product/${item.id}|}"
+								<!-- <a th:href="@{|/product/${item.id}|}"
 									} class="w3-button w3-green">More details <i
 									class="fa-solid fa-eye"></i>
-								</a> <a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}"
-									class="w3-button w3-green">Add to cart <i
-									class="fa-solid fa-eye"></i>
+								</a>  -->
+								<a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}"
+									class="w3-button w3-green">Add to cart <i class="fa-solid fa-cart-plus"></i>
 								</a>
 							</div>
 							<p style="text-align: center;">

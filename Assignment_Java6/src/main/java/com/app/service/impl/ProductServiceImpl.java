@@ -58,4 +58,18 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		pdao.deleteById(id);
 	}
+
+
+	@Override
+	public List<Product> findByNameAndCatogory(String name, String cid) {
+		// TODO Auto-generated method stub
+		return pdao.findByNameAndCatogory(name, cid);
+	}
+
+
+	@Override
+	public List<Product> findRange(Double from, Double to) {
+		// TODO Auto-generated method stub
+		return pdao.findByPriceBetween(from,to);
+	}
 }

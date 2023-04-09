@@ -20,4 +20,8 @@ public interface ProductService {
 
 	void delete(Integer id);
 
+	List<Product> findByNameAndCatogory(String name, String cid);
+
+	List<Product> findRange(Double from, Double to);
+
 }

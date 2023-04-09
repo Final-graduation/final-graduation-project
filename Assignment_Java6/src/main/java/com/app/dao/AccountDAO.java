@@ -12,5 +12,6 @@ import com.app.entity.Product;
 
 @Repository
 public interface AccountDAO extends JpaRepository<Account, String>{
-
+	@Query("select distinct ar.account from Authority ar where ar.role.id in ('DIRE','STAF')")
+	List<Account> getAdministrators();
 }

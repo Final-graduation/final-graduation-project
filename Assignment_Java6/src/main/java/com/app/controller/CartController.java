@@ -14,5 +14,4 @@ public class CartController {
 	public String view() {
 		return "cart/view";
 	}
-	
 }

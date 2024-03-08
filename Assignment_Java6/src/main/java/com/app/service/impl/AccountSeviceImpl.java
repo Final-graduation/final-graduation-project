@@ -35,5 +35,11 @@ public class AccountSeviceImpl implements AccountService {
 		return adao.getAdministrators();
 	}
 
+	@Override
+	public Account signUP(Account account) {
+		// TODO Auto-generated method stub
+		return adao.save(account);
+	}
+
 	
 }

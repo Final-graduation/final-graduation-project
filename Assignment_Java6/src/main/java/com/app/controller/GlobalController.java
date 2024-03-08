@@ -33,11 +33,11 @@ public class GlobalController {
 				: accountService.findById(request.getUserPrincipal().getName()).getFullname();
 	}
 	
-	@ModelAttribute("image")
-	String getImage(HttpServletRequest request) {
-		return request.getUserPrincipal() == null ? ""
-				: accountService.findById(request.getUserPrincipal().getName()).getPhoto();
-	}
+	// @ModelAttribute("image")
+	// String getImage(HttpServletRequest request) {
+	// 	return request.getUserPrincipal() == null ? ""
+	// 			: accountService.findById(request.getUserPrincipal().getName()).getPhoto();
+	// }
 	
 	@ModelAttribute("cates")
 	List<Category> cates(){

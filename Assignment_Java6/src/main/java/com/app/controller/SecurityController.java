@@ -1,15 +1,64 @@
 package com.app.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.app.entity.Account;
+import com.app.entity.Authority;
+import com.app.service.AccountService;
+import com.app.service.AuthorityService;
+import com.app.service.RoleService;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 
 @Controller
 public class SecurityController {
+
+	@Autowired
+    private AccountService accountService;
+
+	@Autowired
+	private AuthorityService authorityService;
+
+	@Autowired
+	private RoleService roleService;
+
+	@GetMapping("/login/signup")
+	public String signUp(Model model) {
+		model.addAttribute("account", new Account());
+		return "login/sign-up";
+	}
+
+	@PostMapping("/login/signup")
+	public String postMethodName(@ModelAttribute Account account) {
+		if (!account.getPassword().equals(account.getConfirmPassword())) {
+			return "redirect:/login/signup?error=passwordMismatch";
+		}
+
+		Authority auth = new Authority();
+		auth.setAccount(account);
+		auth.setRole(roleService.findById("CUS"));
+
+		authorityService.create(auth);
+		accountService.signUP(account);
+
+		return "login/sign-up";
+	}
+	
+	
 	
 	@RequestMapping("/login/form")
 	public String form() {

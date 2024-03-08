@@ -243,7 +243,4 @@ app.controller("authority-ctrl", function($scope, $http, $location) {
 			console.log("Error,",error);
 		})
 	}
-
-
-
 })

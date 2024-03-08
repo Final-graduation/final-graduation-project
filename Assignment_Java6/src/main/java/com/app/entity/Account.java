@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class Account  implements Serializable{
 	String password;
 	String fullname;
 	String email;
-	String photo;
+	String sdt;
+	String address;
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
 	List<Order> orders;
@@ -36,4 +38,7 @@ public class Account  implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
 	List<Authority> authorities;
+
+	@Transient
+    String confirmPassword;
 }

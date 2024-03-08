@@ -11,5 +11,6 @@ public interface AccountService {
 	List<Account> findAll();
 
 	List<Account> getAdministrators();
-	
+
+	Account signUP(Account account);
 }

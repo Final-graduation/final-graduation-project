@@ -62,7 +62,7 @@ public class SecurityController {
 	
 	@RequestMapping("/login/form")
 	public String form() {
-		return "login/login-form";
+		return "login/loginform-d";
 	}
 	
 	@RequestMapping("/login/success")

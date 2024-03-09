@@ -10,6 +10,7 @@ create table products(
 	id int identity(1,1) primary key not null,
 	name nvarchar(50) not null,
 	image nvarchar(50) not null,
+	description nvarchar(255),
 	price float not null, 
 	createDate date not null,
 	available bit not null,

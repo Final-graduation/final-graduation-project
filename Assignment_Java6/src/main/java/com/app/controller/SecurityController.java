@@ -39,7 +39,7 @@ public class SecurityController {
 	@GetMapping("/login/signup")
 	public String signUp(Model model) {
 		model.addAttribute("account", new Account());
-		return "login/sign-up";
+		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
@@ -52,10 +52,10 @@ public class SecurityController {
 		auth.setAccount(account);
 		auth.setRole(roleService.findById("CUS"));
 
-		authorityService.create(auth);
 		accountService.signUP(account);
+		authorityService.create(auth);
 
-		return "login/sign-up";
+		return "login/signup";
 	}
 	
 	

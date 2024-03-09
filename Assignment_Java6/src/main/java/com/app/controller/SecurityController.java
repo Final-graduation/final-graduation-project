@@ -52,8 +52,8 @@ public class SecurityController {
 		auth.setAccount(account);
 		auth.setRole(roleService.findById("CUS"));
 
-		authorityService.create(auth);
 		accountService.signUP(account);
+		authorityService.create(auth);
 
 		return "login/sign-up";
 	}

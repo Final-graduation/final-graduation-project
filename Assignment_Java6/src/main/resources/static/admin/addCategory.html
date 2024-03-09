@@ -22,13 +22,10 @@
 		<h2>Category</h2>
 	</div>
 	<form class="w3-container">
-		<br> <label>ID</label> <input path="categoryid" class="w3-input"
-			type="text" required /> <br> <label>Name</label> <input
-			path="categoryname" class="w3-input" type="text" required /> <br>
+		<br><label>Name</label> <input ng-model="form.name" class="w3-input" type="text" required /> <br>
 		<div class="mb-3">
-			<button formaction="/admin/btnSaveLoaiHang" class="w3-button w3-red">Create</button>
-			<a href="/admin/them/loaihang" class="w3-button w3-red">Reset</a>
+			<button ng-click="create()" class="w3-button w3-red">Create</button>
+			<button ng-click="reset()"class="w3-button w3-red" >Reset</button>
 		</div>
 	</form>
 </section>
-

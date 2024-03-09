@@ -99,6 +99,11 @@
 						</p>
 
 						<p>
+							<label>Description</label>
+							<textarea ng-model="form.description" class="w3-input" rows="5" required></textarea>
+						</p>
+
+						<p>
 							<label>Create Date</label> <input ng-model="form.createDate"
 								class="w3-input" type="date" required>
 						</p>
@@ -153,13 +158,13 @@
 
 </section>
 <script>
-function openCity(cityName) {
-  var i;
-  var x = document.getElementsByClassName("city");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  document.getElementById(cityName).style.display = "block";
-  
-}
+	function openCity(cityName) {
+		var i;
+		var x = document.getElementsByClassName("city");
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+		}
+		document.getElementById(cityName).style.display = "block";
+		
+	}
 </script>

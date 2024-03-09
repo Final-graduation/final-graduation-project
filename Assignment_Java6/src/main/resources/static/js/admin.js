@@ -30,6 +30,28 @@ app.config(function($routeProvider) {
 		});
 });
 
+app.controller("category-ctrl", function($scope, $http){
+	$scope.cates = [];
+	$scope.form = {};
+
+	$scope.create = function() {
+		var item = angular.copy($scope.form);
+
+		$http.post(`/rest/categories`, item).then(resp => {
+			$scope.cates.push(resp.data);
+			$scope.reset();
+			alert("Create successfully!")
+		}).catch(error => {
+			alert("Error! Please try again");
+			console.log("Error :", error);
+		})
+	}
+
+	$scope.reset = function() {
+		$scope.form = {}
+	}
+})
+
 app.controller("product-ctrl", function($scope, $http) {
 	$scope.items = [];
 	$scope.cates = [];

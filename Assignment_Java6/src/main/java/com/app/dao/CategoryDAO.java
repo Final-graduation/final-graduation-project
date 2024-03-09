@@ -9,8 +9,5 @@ import com.app.entity.Category;
 
 
 @Repository
-public interface CategoryDAO extends JpaRepository<Category, String>{
-
-	
-	
+public interface CategoryDAO extends JpaRepository<Category, Integer>{
 }

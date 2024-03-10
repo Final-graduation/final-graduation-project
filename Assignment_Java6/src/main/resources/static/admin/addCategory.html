@@ -1,31 +1,28 @@
-<section class="w3-animate-opacity">
-	<div class="w3-container">
-		<p>
-		<h3>
-			<b>List Categories</b>
-		</h3>
-		</p>
-		<form action="/admin/product/timkiem" method="post">
-			<div class="w3-bar">
-				<button class="w3-button  w3-hover-red">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-				<input type="text" name="keyWords"
-					class="w3-input w3-bar-item w3-round" width="200px;"
-					placeholder="Type name item...">
-			</div>
-		</form>
-
-	</div>
-	<br>
-	<div class="w3-container w3-2021-inkwell w3-padding">
-		<h2>Category</h2>
-	</div>
-	<form class="w3-container">
-		<br><label>Name</label> <input ng-model="form.name" class="w3-input" type="text" required /> <br>
-		<div class="mb-3">
-			<button ng-click="create()" class="w3-button w3-red">Create</button>
-			<button ng-click="reset()"class="w3-button w3-red" >Reset</button>
-		</div>
+<section class="w3-animate-opacity" id="category-section">
+	<form class="w3-container form-add-category">
+			<input ng-model="form.name" class="category-name" type="text" placeholder="Enter category name..." required />
+			<button ng-click="create()" class="category-button">Create</button>
+			<button ng-click="reset()"class="category-button" >Reset</button>
 	</form>
+	<div class="category-section">
+		<div class="admin-category-card" ng-repeat="item in pager.items">
+			<div class="card-body">
+				<strong>5 products</strong>
+			</div>
+			<div class="card-footer">
+				<strong>{{item.name}}</strong>
+				<span><i class="fa-solid fa-arrow-right"></i></span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="w3-center category-navigator">
+		<div class="w3-bar">
+			<button class="w3-bar-item" ng-click="pager.first()"><i class="fa-solid fa-backward-step"></i></button>
+			<button class="w3-bar-item" ng-click="pager.prev()"><i class="fa-solid fa-backward-fast"></i></button>
+			<button class="w3-bar-item">{{pager.page+1}} of {{pager.count}}</button>
+			<button class="w3-bar-item" ng-click="pager.next()"><i class="fa-solid fa-forward-fast"></i></button>
+			<button class="w3-bar-item" ng-click="pager.last()"><i class="fa-solid fa-forward-step"></i></button>
+		</div>
+	</div>
 </section>

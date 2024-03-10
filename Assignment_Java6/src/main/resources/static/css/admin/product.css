@@ -1,0 +1,87 @@
+.table-product-row > td {
+  vertical-align: middle;
+}
+
+.active-tab {
+  display: block !important;
+  border-bottom: none !important;
+}
+
+.tab-content {
+  display: none;
+}
+
+.admin-product-navigator > div > button {
+  cursor: pointer;
+}
+
+.product-button {
+  border-bottom: 1px solid;
+}
+
+.product-button > button {
+  cursor: pointer;
+}
+
+.product-button> .active {
+  background-color: #ccc;
+}
+
+.admin-product-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-form {
+  width: 500px;
+}
+
+.product-image > img {
+  border-radius: 10%;
+  width: 220px;
+}
+
+
+.admin-product-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-form {
+  width: 500px;
+}
+
+.product-image > img {
+  border-radius: 10%;
+  width: 220px;
+}
+
+.product-image > input {
+  margin-top: 10px;
+}
+
+.fa-pen-to-square{
+  cursor: pointer;
+}
+
+.fa-pen-to-square:hover {
+  color: var(--primary-color);
+}
+
+#admin-list-product-tab {
+  padding: 20px;
+}
+
+.confirm-modal{
+  width: 350px;
+  background-color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  padding: 15px;
+}
+
+.confirm-modal > i {
+  cursor: pointer;
+}

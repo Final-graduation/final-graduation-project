@@ -1,4 +1,9 @@
 var app = angular.module("admin-app", ["ngRoute"]);
+
+app.run(['$location', function($location) {
+	$location.path('/');
+}]);
+
 app.config(function($routeProvider) {
 	$routeProvider
 		.when("/", {
@@ -31,14 +36,18 @@ app.config(function($routeProvider) {
 });
 
 app.controller("category-ctrl", function($scope, $http){
-	$scope.cates = [];
+	$scope.items = [];
 	$scope.form = {};
+
+	$http.get("/rest/categories").then(resp => {
+		$scope.items = resp.data;
+	})
 
 	$scope.create = function() {
 		var item = angular.copy($scope.form);
 
-		$http.post(`/rest/categories`, item).then(resp => {
-			$scope.cates.push(resp.data);
+		$http.post('/rest/categories', item).then(resp => {
+			$scope.items.push(resp.data);
 			$scope.reset();
 			alert("Create successfully!")
 		}).catch(error => {
@@ -50,9 +59,45 @@ app.controller("category-ctrl", function($scope, $http){
 	$scope.reset = function() {
 		$scope.form = {}
 	}
+
+	$scope.pager = {
+		page: 0,
+		size: 10,
+		get items() {
+			var start = this.page * this.size;
+			return $scope.items.slice(start, start + this.size);
+		},
+		get count() {
+			return Math.ceil(1.0 * $scope.items.length / this.size);
+		},
+		first() {
+			this.page = 0;
+		},
+		prev() {
+			this.page--;
+			if (this.page < 0) {
+				this.last();
+			}
+		},
+		next() {
+			this.page++;
+			if (this.page >= this.count) {
+				this.first();
+			}
+		},
+		last() {
+			this.page = this.count - 1;
+		}
+	}
 })
 
 app.controller("product-ctrl", function($scope, $http) {
+
+	const listBtn = $('#admin-list-product');
+	const createBtn = $('#admin-create-product');
+	const listTab = $('#admin-list-product-tab');
+	const createTab = $('#admin-create-product-tab');
+
 	$scope.items = [];
 	$scope.cates = [];
 	$scope.form = {};
@@ -89,15 +134,13 @@ app.controller("product-ctrl", function($scope, $http) {
 		}
 	}
 	//dísplay to the form
-	$scope.edit = function(item, cityName) {
+	$scope.edit = function(item) {
 		$scope.form = angular.copy(item);
-		var i;
-		var x = document.getElementsByClassName("city");
-		for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-		document.getElementById(cityName).style.display = "block";
-
+		
+		listBtn.removeClass('active');
+		createBtn.addClass('active');
+		listTab.removeClass('active-tab');
+		createTab.addClass('active-tab');
 	}
 	//add new item
 
@@ -107,11 +150,19 @@ app.controller("product-ctrl", function($scope, $http) {
 			resp.data.createDate = new Date(resp.data.createDate)
 			$scope.items.push(resp.data);
 			$scope.reset();
+			$scope.changeDefaultTab();
 			alert("Create successfully!")
 		}).catch(error => {
 			alert("Error! Please try again");
 			console.log("Error :", error);
 		})
+	}
+
+	$scope.changeDefaultTab = function() {
+		listBtn.addClass('active');
+		createBtn.removeClass('active');
+		listTab.addClass('active-tab');
+		createTab.removeClass('active-tab');
 	}
 
 	//update the item
@@ -120,6 +171,7 @@ app.controller("product-ctrl", function($scope, $http) {
 		$http.put(`/rest/products/${item.id}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
+			$scope.changeDefaultTab();
 			alert("Update successfully!");
 		}).catch(error => {
 			alert("Error");
@@ -134,6 +186,7 @@ app.controller("product-ctrl", function($scope, $http) {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items.splice(index, 1);
 			$scope.reset();
+			$scope.changeDefaultTab();
 			alert("Delete successfully!");
 		}).catch(error => {
 			alert("Error");

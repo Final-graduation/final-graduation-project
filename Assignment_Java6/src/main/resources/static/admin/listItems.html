@@ -1,73 +1,37 @@
-
 <section class="w3-animate-opacity">
-	<!-- Header -->
-	<div class="w3-container">
-	<p><h3><b>List Items</b></h3></p>
-		<form action="/admin/product/timkiem" method="post">
-			<div class="w3-bar">
-				<button class="w3-button  w3-hover-red">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-				<input type="text" name="keyWords"
-					class="w3-input w3-bar-item w3-round" width="200px;"
-					placeholder="Type name item...">
-			</div>
-		</form>
-
+	<div class="w3-bar product-button">
+		<button class="w3-bar-item active" id="admin-list-product" ng-click ="reset()"> <i class="fa-solid fa-bars"></i> List</button>
+		<button class="w3-bar-item" id="admin-create-product"><i class="fa-solid fa-plus"></i> Product</button>
 	</div>
-	<br>
-	<div class="w3-bar w3-2021-inkwell">
-		<button class="w3-bar-item w3-button" ng-click ="reset()" onclick="openCity('London')">List</button>
-		<button class="w3-bar-item w3-button" onclick="openCity('Paris')"><i class="fa-solid fa-plus"></i> Item</button>
-	</div>
-
 	<!-- Tab1 -->
-	<div id="London" class="city">
-		<div class="table-responsive">
-			<table class="w3-table-all w3-animate-opacity">
-				<thead>
-					<tr>
-						<th>ProductId</th>
-						<th>Picture</th>
-						<th>Name</th>
-						<th>Price</th>
-						<th>Created Date</th>
-						<th>Available</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				</tbody>
-				<tr ng-repeat="item in pager.items">
+	<div id="admin-list-product-tab" class="tab-content active-tab">
+		<table class="w3-table-all w3-animate-opacity">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Detail</th>
+				</tr>
+			</thead>
+			</tbody>
+				<tr ng-repeat="item in pager.items" class="table-product-row">
 					<td>{{item.id}}</td>
-					<td><img ng-src="/images/{{item.image}}"
-						style="max-width: 100px;" alt=""></td>
+					<td><img ng-src="/images/{{item.image}}" style="max-width: 40px;"></td>
 					<td>{{item.name}}</td>
 					<td>{{item.price}}</td>
-					<td>{{item.createDate | date }}</td>
-					<td>{{item.available? 'Yes' : 'No'}}</td>
-					<td><button ng-click="edit(item,'Paris')">
-							<i class="fa-solid fa-pen-to-square"></i>
-						</button></td>
-					<td><button ng-click="delete2(item)">
-							<i class="fa-solid fa-trash-can"></i>
-						</button></td>
+					<td><i ng-click="edit(item)" class="fa-solid fa-pen-to-square"></i></td>
 				</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="w3-center w3-padding-32">
+			</tbody>
+		</table>
+		<div class="w3-center admin-product-navigator">
 			<div class="w3-bar">
-				<button class="w3-bar-item w3-button w3-hover-black"
-					ng-click="pager.first()"><i class="fa-solid fa-backward-step"></i></button>
-				<button class="w3-bar-item w3-hover-black w3-button"
-					ng-click="pager.prev()"><i class="fa-solid fa-backward-fast"></i></button>
-				<button class="w3-bar-item w3-hover-black w3-button">{{pager.page+1}}
-					of {{pager.count}}</button>
-				<button class="w3-bar-item w3-button w3-hover-black"
-					ng-click="pager.next()"><i class="fa-solid fa-forward-fast"></i></button>
-				<button class="w3-bar-item w3-button w3-hover-black"
-					ng-click="pager.last()"><i class="fa-solid fa-forward-step"></i></button>
+				<button class="w3-bar-item" ng-click="pager.first()"><i class="fa-solid fa-backward-step"></i></button>
+				<button class="w3-bar-item" ng-click="pager.prev()"><i class="fa-solid fa-backward-fast"></i></button>
+				<button class="w3-bar-item">{{pager.page+1}} of {{pager.count}}</button>
+				<button class="w3-bar-item" ng-click="pager.next()"><i class="fa-solid fa-forward-fast"></i></button>
+				<button class="w3-bar-item" ng-click="pager.last()"><i class="fa-solid fa-forward-step"></i></button>
 			</div>
 		</div>
 	</div>
@@ -75,20 +39,29 @@
 
 	<!-- EndTab 1 -->
 	<!-- Tab 2 -->
-	<div id="Paris" class="city" style="display: none">
+	<div id="admin-create-product-tab" class="tab-content">
 		<div class=" w3-animate-opacity">
-			<form class="w3-container">
-				<div class="row">
-					<div class="col-4 mt-3">
-						<img ng-src="/images/{{form.image}}" width="220" height="190">
-						<div>
-							<label for="image_uploads">Choose images to upload (PNG,
-								JPG)</label> <input type="file" name="file" id="image"
-								accept=".jpg, .jpeg, .png"
-								onchange="angular.element(this).scope().imageChanged(this.files)" />
-						</div>
+			<form class="admin-product-container">
+					<div class="product-image">
+						<img ng-src="/images/{{form.image}}"><br>
+						<input type="file" name="file" id="image" accept=".jpg, .jpeg, .png" onchange="angular.element(this).scope().imageChanged(this.files)" />
 					</div>
-					<div class="col-8 mt-2">
+					<div class="product-form">
+						<p>
+							<label>Active</label>
+							<select ng-model="form.available" class="w3-select mt-3" required>
+								<option value="" selected disabled>Choose active status</option>
+								<option ng-value="true">Yes</option>
+								<option ng-value="false">No</option>
+							</select>
+						</p>
+						<p>
+							<label>Category</label>
+							<select ng-model="form.category.id" class="w3-select mt-3" required>
+								<option value="" selected disabled>Choose category</option>
+								<option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+							</select>
+						</p>
 						<p>
 							<label>Name</label> <input ng-model="form.name" class="w3-input"
 								type="text" required>
@@ -102,69 +75,25 @@
 							<label>Description</label>
 							<textarea ng-model="form.description" class="w3-input" rows="5" required></textarea>
 						</p>
-
 						<p>
-							<label>Create Date</label> <input ng-model="form.createDate"
-								class="w3-input" type="date" required>
+							<button ng-click="create()" class="w3-button common-button">Create</button>
+							<button ng-click="update()" class="w3-button common-button">Update</button>
+							<a class="w3-button common-button btn-delete-product">Delete</a>
+							<button ng-click="reset()" class="w3-button common-button">Reset</button>
 						</p>
-						<p>
-							<select ng-model="form.category.id" class="w3-select mt-3"
-								required>
-								<option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
-
-							</select>
-						</p>
-						<p>
-							<input ng-model="form.available" class="w3-radio" type="radio"
-								ng-value="true" required> <label>Available</label> <input
-								ng-model="form.available" class="w3-radio  ms-5" type="radio"
-								ng-value="false" required> <label>Unavailable</label>
-						</p>
-
-
-						<p>
-							<button ng-click="create()" class="w3-button w3-red">Create</button>
-							<button ng-click="update()" class="w3-button w3-red">Update</button>
-							<a class="w3-button w3-red"
-								onclick="document.getElementById('thongBaoXoa').style.display='block'">Delete</a>
-							<button ng-click="reset()" class="w3-button w3-red">Reset</button>
-						</p>
-
 					</div>
-				</div>
 			</form>
 		</div>
 	</div>
-	<!-- End Tab 2 -->
-	<!-- thongBaoXoa -->
-	<div id="thongBaoXoa" class="w3-modal">
-		<div class="w3-modal-content w3-animate-top"
-			style="padding: 32px; width: 700px;">
-			<div class="w3-container w3-white w3-center">
-				<i
-					onclick="document.getElementById('thongBaoXoa').style.display='none'"
-					class="fa fa-remove w3-right w3-button w3-transparent w3-xlarge"></i>
-				<h2 class="w3-wide">Bạn muốn xóa sản phẩm này ?</h2>
-				<button ng-click="delete(form)"
-					onclick="document.getElementById('thongBaoXoa').style.display='none';"
-					class="w3-button w3-red w3-margin-bottom">Delete</button>
-				<button type="button" class="w3-button w3-blue w3-margin-bottom"
-					onclick="document.getElementById('thongBaoXoa').style.display='none'">Cancel</button>
-			</div>
+	<!----------------------------------->
+	<div id="confirm" class="w3-modal">
+		<div class="w3-animate-top confirm-modal">
+				<i class="fa fa-remove w3-right cancel-delete-btn"></i>
+				<p>Are you sure?</p>
+				<button ng-click="delete(form)" class="w3-button w3-red w3-margin-bottom cancel-delete-btn">Delete</button>
+				<button type="button" class="w3-button common-button w3-margin-bottom cancel-delete-btn">Cancel</button>
 		</div>
 	</div>
-
-	<!-- End Tab2 -->
-
 </section>
-<script>
-	function openCity(cityName) {
-		var i;
-		var x = document.getElementsByClassName("city");
-		for (i = 0; i < x.length; i++) {
-			x[i].style.display = "none";  
-		}
-		document.getElementById(cityName).style.display = "block";
-		
-	}
-</script>
+
+<script type="text/javascript" src="/js/admin/product.js"></script>

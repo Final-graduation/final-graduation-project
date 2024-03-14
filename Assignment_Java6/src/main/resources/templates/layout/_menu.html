@@ -14,97 +14,45 @@
 	</nav>
 
 	<!-- header -->
-	<header th:fragment="navbar">
+	<div th:fragment="navbar">
 		<!-- header inner -->
-		<div class="header">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-						<div class="full">
-							<div class="center-desk">
-								<div class="logo">
-									<a th:href="@{|/|}"><img th:src="@{|/images/logo.png|}"
-										alt="#" /></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-						<nav class="navigation navbar navbar-expand-md navbar-dark ">
-							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-target="#navbarsExample04"
-								aria-controls="navbarsExample04" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-							</button>
-							<div class="collapse navbar-collapse" id="navbarsExample04">
-								<ul class="navbar-nav mr-auto">
-									<li class="nav-item active"><a class="nav-link"
-										th:href="@{|/|}">Home</a></li>
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{|/about|}">About</a></li>
-
-									<li class="nav-item dropdown"><a
-										class="nav-link dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false"> Shop </a>
-										<ul class="dropdown-menu">
-											<li th:each="c:${cates}"><a class="dropdown-item"
-												th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
-											<li><hr class="dropdown-divider"></li>
-											<li><a class="dropdown-item" href="#">Best seller</a></li>
-										</ul></li>
-
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{|/contact|}">Contact Us</a></li>
-									<li class="nav-item d_none"><a class="nav-link" href="#"><i
-											class="fa fa-search" aria-hidden="true"></i></a></li>
-
-
-
-
-									<li class="nav-item dropdown" sec:authorize="isAuthenticated()"><a
-										class="nav-link dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false"> MyAccount
-									</a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="dropdown-item">
-													<img th:src="@{|/images/${image}|}"
-														style="max-width: 60px;"  class="w3-circle"/> <b th:text="${name}"></b>
-
-												</div>
-											</li>
-
-											<li><a class="dropdown-item" th:href="@{|/order/list|}"><i class="fa-solid fa-clipboard-list w3-margin-right"></i>My
-													order</a></li>
-											<li><a class="dropdown-item" th:href="@{|/logout|}"><i class="fa-solid fa-right-from-bracket w3-margin-right"></i>Log
-													out</a></li>
-											<li sec:authorize="hasAnyRole('STAF','DIRE')"><a
-												class="dropdown-item" th:href="@{|/admin|}"><i class="fa-solid fa-layer-group w3-margin-right"></i>Administration</a></li>
-										</ul></li>
-
-									<li class="nav-item" sec:authorize="!isAuthenticated()"><a
-										class="nav-link" th:href="@{|/login/form|}">Login</a></li>
-
-
-
-									<li class="nav-item"><a th:href="@{|/cart/view|}"
-										class="btn w3-yellow position-relative nav-link"> <i
-											class="fa fa-shopping-cart fa-sm"></i> <span
-											class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red w-50">
-												{{cart.count}}</span> <!-- tong don gia la {{cart.amount | number:2 }} -->
-									</a></li>
-
-
-
-								</ul>
-							</div>
-						</nav>
-					</div>
-				</div>
-			</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		style="width: 85%; height: auto; margin-top: 10px; margin-left: 8%;">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#"><b>FASHION</b></a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 50%;">
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">SẢN PHẨM</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">GIỚI THIỆU</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">SALE</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">CSKH</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">LIFESTYLE</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart"
+					style="font-size:24px"></i></a>
+			  </li>
+			</ul>
+			<form class="d-flex">
+			  <button class="btn btn-outline-success" type="SignUp" style="width: 130px;">SIGN UP</button>
+			</form>
+		  </div>
 		</div>
-	</header>
+	  </nav>
+	</div>
 	<!-- end header inner -->
 	<!-- end header -->
 </body>

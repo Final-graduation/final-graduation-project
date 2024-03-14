@@ -1,0 +1,42 @@
+.dashboard-section {
+  padding: 15px;
+}
+
+.dashboard-title{
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.overview-container{
+  display: flex;
+}
+
+.overview-container > .left-content {
+  width: 60%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.overview-container > .right-content {
+  width: 40%;
+}
+
+.overview-box {
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 10px
+}
+
+.overview-box p:first-child{
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.overview-box i:nth-of-type(2) {
+  float: right;
+}
+
+.overview-box strong{
+  font-size: 20px;
+}

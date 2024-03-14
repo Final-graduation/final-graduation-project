@@ -1,0 +1,77 @@
+<div class="dashboard-section">
+  <h4 class="dashboard-title">Sales overview</h4>
+  <div class="overview-container">
+    <div class="left-content">
+      <div class="overview-box">
+        <p>
+          <i class="fa-solid fa-scroll"></i>
+          <span class="overview-title">Total revenue</span>
+          <i class="fa-solid fa-ellipsis"></i>
+        </p>
+        <p>
+          <strong>$15000</strong>
+        </p>
+      </div>
+      <div class="overview-box">
+        <p>
+          <i class="fa-solid fa-box-open"></i>
+          <span class="overview-title">Product sold</span>
+          <i class="fa-solid fa-ellipsis"></i>
+        </p>
+        <p>
+          <strong>10</strong>
+        </p>
+      </div>
+      <div class="overview-box">
+        <p>
+          <i class="fa-solid fa-receipt"></i>
+          <span class="overview-title">Total orders</span>
+          <i class="fa-solid fa-ellipsis"></i>
+        </p>
+        <p>
+          <strong>5</strong>
+        </p>
+      </div>
+      <div class="overview-box">
+        <p>
+          <i class="fa-solid fa-user-group"></i>
+          <span class="overview-title">Total customers</span>
+          <i class="fa-solid fa-ellipsis"></i>
+        </p>
+        <p>
+          <strong>150</strong>
+        </p>
+      </div>
+    </div>
+    <div class="right-content">
+  
+        <canvas id="myChart"></canvas>
+
+      
+    </div>
+  </div>
+
+
+</div>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  const labels = ['thang 1 ', 'thang 2', 'thang 3',  'thang 4',  'thang 5',  'thang 6',  'thang 7']
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First Dataset',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+  };
+
+  new Chart(ctx, config);
+</script>

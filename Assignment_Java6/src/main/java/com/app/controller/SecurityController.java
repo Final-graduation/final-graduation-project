@@ -50,6 +50,7 @@ public class SecurityController {
 
 		Authority auth = new Authority();
 		auth.setAccount(account);
+
 		auth.setRole(roleService.findById("CUS"));
 
 		accountService.signUP(account);

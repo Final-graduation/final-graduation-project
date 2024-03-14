@@ -8,4 +8,7 @@ public interface CategoryService {
 
 	List<Category> findAll();
 
+	Category create(Category category);
+
+	List<Object[]> getAllCategoriesWithCount();
 }

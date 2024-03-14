@@ -7,10 +7,10 @@
 	<div class="category-section">
 		<div class="admin-category-card" ng-repeat="item in pager.items">
 			<div class="card-body">
-				<strong>5 products</strong>
+				<strong>{{item[1]}} products</strong>
 			</div>
 			<div class="card-footer">
-				<strong>{{item.name}}</strong>
+				<strong>{{item[0].name}}</strong>
 				<span><i class="fa-solid fa-arrow-right"></i></span>
 			</div>
 		</div>

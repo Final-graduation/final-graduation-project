@@ -26,4 +26,9 @@ public class CategogyServiceImpl implements CategoryService{
 	public Category create(Category category) {
 		return cdao.save(category);
 	}
+
+	@Override
+	public List<Object[]> getAllCategoriesWithCount() {
+		return cdao.findAllCategoriesWithProductCount();
+	}
 }

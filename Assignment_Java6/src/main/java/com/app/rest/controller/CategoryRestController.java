@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.entity.Category;
 import com.app.entity.Product;
 import com.app.service.CategoryService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin("*")
 @RestController
@@ -30,5 +32,10 @@ public class CategoryRestController {
 	@PostMapping()
 	public Category create(@RequestBody Category category) {
 		return categoryService.create(category);
+	}
+
+	@GetMapping("count")
+	public List<Object[]> count() {
+		return categoryService.getAllCategoriesWithCount();
 	}
 }

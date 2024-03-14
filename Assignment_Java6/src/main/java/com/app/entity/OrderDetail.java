@@ -15,12 +15,12 @@ import lombok.Data;
 @Data
 @Entity 
 @Table(name = "Orderdetails")
-public class OrderDetail  implements Serializable{
+public class OrderDetail implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-	Double price;
 	Integer quantity;
+	String size;
 	@ManyToOne
 	@JoinColumn(name = "Productid")
 	Product product;

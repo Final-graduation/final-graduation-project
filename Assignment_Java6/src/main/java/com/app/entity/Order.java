@@ -31,6 +31,7 @@ public class Order  implements Serializable{
 	Long id;
 	String address;
 	String sdt;
+	Float totalAmount;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")
 	Date createDate = new Date();

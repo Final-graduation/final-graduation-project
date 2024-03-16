@@ -1,25 +1,61 @@
-<div>
-  <canvas id="myChart"></canvas>
+<section class="w3-animate-opacity customer-section">
+	<table class="w3-table-all w3-animate-opacity">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Username</th>
+				<th>Order date</th>
+				<th>Total amount</th>
+				<th>Phone number</th>
+				<th>Address</th>
+			</tr>
+		</thead>
+		</tbody>
+		<tr ng-repeat="item in pager.items" class="table-product-row detail-row" ng-click="info(item)">
+			<td>{{$index + 1}}</td>
+			<td>{{item.account.username}}</td>
+			<td>{{item.createDate}}</td>
+			<td>{{item.totalAmount}}</td>
+			<td>{{item.phoneNumber}}</td>
+			<td>{{item.address}}</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="w3-center admin-product-navigator">
+		<div class="w3-bar">
+			<button class="w3-bar-item" ng-click="pager.first()"><i class="fa-solid fa-backward-step"></i></button>
+			<button class="w3-bar-item" ng-click="pager.prev()"><i class="fa-solid fa-backward-fast"></i></button>
+			<button class="w3-bar-item">{{pager.page+1}} of {{pager.count}}</button>
+			<button class="w3-bar-item" ng-click="pager.next()"><i class="fa-solid fa-forward-fast"></i></button>
+			<button class="w3-bar-item" ng-click="pager.last()"><i class="fa-solid fa-forward-step"></i></button>
+		</div>
+	</div>
+</section>
+
+
+<!----Modal detai order-->
+<div class="w3-modal order-detail-section">
+	<div class="w3-modal-content w3-animate-left order-detail-box">
+		<i class="fa-solid fa-xmark" ng-click="closeDetail()"></i>
+		<table class="w3-table-all">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Size</th>
+				</tr>
+			</thead>
+			</tbody>
+			<tr ng-repeat="item in detail" class="table-product-row">
+				<td>{{$index + 1}}</td>
+				<td><img ng-src="/images/{{item.product.image}}" style="max-width: 40px;"></td>
+				<td>{{item.product.name}}</td>
+				<td>{{item.quantity}}</td>
+				<td>{{item.size}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
-<script>
-  const ctx = document.getElementById('myChart');
-
-	const labels = ['thang 1 ', 'thang 2', 'thang 3',  'thang 4',  'thang 5',  'thang 6',  'thang 7']
-	const data = {
-		labels: labels,
-		datasets: [{
-			label: 'My First Dataset',
-			data: [65, 59, 80, 81, 56, 55, 40],
-			fill: false,
-			borderColor: 'rgb(75, 192, 192)',
-			tension: 0.1
-		}]
-	};
-
-	const config = {
-		type: 'line',
-		data: data,
-	};
-
-	new Chart(ctx, config);
-</script>

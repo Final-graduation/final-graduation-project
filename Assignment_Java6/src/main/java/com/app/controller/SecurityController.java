@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class SecurityController {
 		if (!account.getPassword().equals(account.getConfirmPassword())) {
 			return "redirect:/login/signup?error=passwordMismatch";
 		}
-
+		account.setCreateDate(new Date());
 		Authority auth = new Authority();
 		auth.setAccount(account);
 

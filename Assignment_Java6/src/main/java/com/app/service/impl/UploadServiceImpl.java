@@ -18,7 +18,7 @@ public class UploadServiceImpl implements UploadService{
 	
 	@Override
 	public File save(MultipartFile file, String folder) {
-		File dir = new File(app.getRealPath("/"+folder));
+		File dir = new File(app.getRealPath("/" + folder));
 		if(!dir.exists()) {
 			dir.mkdirs();
 		}
@@ -33,5 +33,4 @@ public class UploadServiceImpl implements UploadService{
 			throw new RuntimeException(e);
 		}
 	}
-
 }

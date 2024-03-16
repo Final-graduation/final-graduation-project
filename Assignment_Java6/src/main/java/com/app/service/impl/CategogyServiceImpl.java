@@ -21,5 +21,14 @@ public class CategogyServiceImpl implements CategoryService{
 		// TODO Auto-generated method stub
 		return cdao.findAll();
 	}
-	
+
+	@Override
+	public Category create(Category category) {
+		return cdao.save(category);
+	}
+
+	@Override
+	public List<Object[]> getAllCategoriesWithCount() {
+		return cdao.findAllCategoriesWithProductCount();
+	}
 }

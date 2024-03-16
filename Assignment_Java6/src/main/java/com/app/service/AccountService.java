@@ -13,4 +13,6 @@ public interface AccountService {
 	List<Account> getAdministrators();
 
 	Account signUP(Account account);
+
+	Integer countUserCurrentDay();
 }

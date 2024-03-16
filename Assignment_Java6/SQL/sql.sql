@@ -12,9 +12,10 @@ create table products(
 	image nvarchar(50) not null,
 	description nvarchar(255),
 	price float not null, 
+	inventory int not null,
 	createDate date not null,
 	available bit not null,
-	categoryId int,
+	categoryId int not null,
 	foreign key(categoryId) references categories(id)
 )
 
@@ -27,11 +28,11 @@ create table accounts(
 	address nvarchar(100)
 )
 
-
 create table orders(
 	id bigint identity(1,1) primary key not null,
 	username varchar(20) not null,
 	createDate datetime not null,
+	totalAmount float not null,
 	address nvarchar(100) not null,
 	phoneNumber nvarchar(12) not null,
 	foreign key(username) references accounts(username)
@@ -41,12 +42,11 @@ create table orderDetails(
 	id bigint identity(1,1) primary key not null,
 	orderId bigint not null,
 	productId int not null,
-	price float not null,
 	quantity int not null,
+	size varchar(5) not null,
 	foreign key(orderId) references orders(id),
 	foreign key(productId) references products(id)
 )
-
 
 create table authorities(
 	id int identity(1,1) primary key not null,

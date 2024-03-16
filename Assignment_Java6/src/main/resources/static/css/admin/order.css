@@ -1,0 +1,23 @@
+.detail-row:hover {
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.order-detail-section{
+  display: none;
+}
+
+.order-detail-section.active{
+  display: block;
+}
+
+.fa-xmark{
+  display: block;
+  float: right;
+  padding: 10px;
+}
+
+.fa-xmark:hover{
+  color: var(--primary-color);
+  cursor: pointer;
+}

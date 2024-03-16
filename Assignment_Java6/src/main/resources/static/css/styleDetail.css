@@ -1,0 +1,34 @@
+div.card{
+    width: 90%;
+    height: auto;
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+span.productName {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  div.col-md-8 {
+    width: 60%;
+    margin-left: 15px;
+  }
+
+  .sale01day {
+    line-height: 32px;
+    margin-bottom: 0px;
+  }
+
+  .price-goc {
+    text-decoration: line-through;
+  }
+
+  .progress-bar {
+    width: 83%;
+  }
+
+  .display-6{
+    font-size: x-large;
+  } 

@@ -1,28 +1,28 @@
-app.controller("product-ctrl", function($scope, $http) {
-  const productButton = $('.product-button');
-  const productTab = $('.tab-content');
-  const cancelBtn = $('.cancel-delete-btn');
-  const modalConfirm = $('#confirm');
-  const deleteBtn = $('.btn-delete-product');
+app.controller("product-ctrl", function ($scope, $http) {
+	const productButton = $('.product-button');
+	const productTab = $('.tab-content');
+	const cancelBtn = $('.cancel-delete-btn');
+	const modalConfirm = $('#confirm');
+	const deleteBtn = $('.btn-delete-product');
 
-  deleteBtn.on('click', function(){
-    modalConfirm.css('display', 'block');
-  })
+	deleteBtn.on('click', function () {
+		modalConfirm.css('display', 'block');
+	})
 
-  cancelBtn.on('click', function(){
-    modalConfirm.css('display', 'none');
-  })
+	cancelBtn.on('click', function () {
+		modalConfirm.css('display', 'none');
+	})
 
-  productButton.on('click', function(e) {
-    const btnTarget = e.target;
-    if (btnTarget.matches('button')){
-      $(this).children().removeClass('active')
-      $(btnTarget).addClass('active')
-    }
+	productButton.on('click', function (e) {
+		const btnTarget = e.target;
+		if (btnTarget.matches('button')) {
+			$(this).children().removeClass('active')
+			$(btnTarget).addClass('active')
+		}
 
-    productTab.removeClass('active-tab');
-    $(`#${btnTarget.id}-tab`).addClass('active-tab');
-  })
+		productTab.removeClass('active-tab');
+		$(`#${btnTarget.id}-tab`).addClass('active-tab');
+	})
 
 	const listBtn = $('#admin-list-product');
 	const createBtn = $('#admin-create-product');
@@ -33,7 +33,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	$scope.cates = [];
 	$scope.form = {};
 
-	$scope.initialize = function() {
+	$scope.initialize = function () {
 		//
 		$scope.form = {
 			createDate: new Date(),
@@ -57,7 +57,7 @@ app.controller("product-ctrl", function($scope, $http) {
 
 	//delete form
 
-	$scope.reset = function() {
+	$scope.reset = function () {
 		$scope.form = {
 			createDate: new Date(),
 			image: "upload.png",
@@ -65,9 +65,9 @@ app.controller("product-ctrl", function($scope, $http) {
 		}
 	}
 	//dísplay to the form
-	$scope.edit = function(item) {
+	$scope.edit = function (item) {
 		$scope.form = angular.copy(item);
-		
+
 		listBtn.removeClass('active');
 		createBtn.addClass('active');
 		listTab.removeClass('active-tab');
@@ -75,7 +75,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 	//add new item
 
-	$scope.create = function() {
+	$scope.create = function () {
 		var item = angular.copy($scope.form);
 		$http.post(`/rest/products`, item).then(resp => {
 			resp.data.createDate = new Date(resp.data.createDate)
@@ -89,7 +89,7 @@ app.controller("product-ctrl", function($scope, $http) {
 		})
 	}
 
-	$scope.changeDefaultTab = function() {
+	$scope.changeDefaultTab = function () {
 		listBtn.addClass('active');
 		createBtn.removeClass('active');
 		listTab.addClass('active-tab');
@@ -97,7 +97,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//update the item
-	$scope.update = function() {
+	$scope.update = function () {
 		var item = angular.copy($scope.form);
 		$http.put(`/rest/products/${item.id}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
@@ -111,7 +111,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//delete the item
-	$scope.delete = function(item) {
+	$scope.delete = function (item) {
 		var item = angular.copy($scope.form);
 		$http.delete(`/rest/products/${item.id}`).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
@@ -126,7 +126,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//delete the item
-	$scope.delete2 = function(item) {
+	$scope.delete2 = function (item) {
 		$http.delete(`/rest/products/${item.id}`).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items.splice(index, 1);
@@ -138,7 +138,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//dislay image when selected
-	$scope.imageChanged = function(files) {
+	$scope.imageChanged = function (files) {
 		var data = new FormData();
 		data.append('file', files[0]);
 		console.log(data.get('file'));
@@ -182,5 +182,23 @@ app.controller("product-ctrl", function($scope, $http) {
 		last() {
 			this.page = this.count - 1;
 		}
+	}
+
+
+	// js trang sản phẩm
+
+	function toggleVisibility(boxId) {
+		var box = document.getElementById(boxId);
+		var arrowIcon = box.querySelector('.bx.bxs-down-arrow');
+		box.classList.toggle("collapsed");
+		arrowIcon.classList.toggle("rotated");
+	}
+
+	function showSecondImage(img) {
+		img.nextElementSibling.style.display = "block";
+	}
+
+	function hideSecondImage(img) {
+		img.nextElementSibling.style.display = "none";
 	}
 });

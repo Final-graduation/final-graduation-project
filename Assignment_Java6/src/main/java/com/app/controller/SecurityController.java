@@ -39,7 +39,7 @@ public class SecurityController {
 	@GetMapping("/login/signup")
 	public String signUp(Model model) {
 		model.addAttribute("account", new Account());
-		return "login/signup";
+		return "login/loginform-d";
 	}
 
 	@PostMapping("/login/signup")
@@ -55,7 +55,7 @@ public class SecurityController {
 		accountService.signUP(account);
 		authorityService.create(auth);
 
-		return "login/signup";
+		return "login/loginform-d";
 	}
 	
 	

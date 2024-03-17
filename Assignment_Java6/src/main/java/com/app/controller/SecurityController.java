@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.entity.Account;
 import com.app.entity.Authority;
+import com.app.service.AccountRegistrationService;
 import com.app.service.AccountService;
 import com.app.service.AuthorityService;
 import com.app.service.RoleService;
@@ -37,14 +38,17 @@ public class SecurityController {
 	@Autowired
 	private RoleService roleService;
 
-	@GetMapping("/login/signup")
+	@Autowired
+	private AccountRegistrationService accService;
+
+	@GetMapping("login/form")
 	public String signUp(Model model) {
 		model.addAttribute("account", new Account());
-		return "login/sign-up";
+		return "login/loginform-d";
 	}
 
 	@PostMapping("/login/signup")
-	public String postMethodName(@ModelAttribute Account account) {
+	public String postMethodName(@ModelAttribute Account account, Model model) {
 		if (!account.getPassword().equals(account.getConfirmPassword())) {
 			return "redirect:/login/signup?error=passwordMismatch";
 		}
@@ -56,38 +60,33 @@ public class SecurityController {
 
 		accountService.signUP(account);
 		authorityService.create(auth);
-
-		return "login/sign-up";
-	}
-	
-	
-	
-	@RequestMapping("/login/form")
-	public String form() {
-		return "login/login-form";
+		accService.registerNewAccount(account);
+		model.addAttribute("messageSignup", "Sign-up successfully!");
+		return "login/loginform-d";
 	}
 	
 	@RequestMapping("/login/success")
 	public String login(Model model) {
 		model.addAttribute("message", "Success!");
-		return "forward:/login/form";
+		return "forward:/";
 	}
+
 	@RequestMapping("/login/error")
 	public String error(Model model) {
-		model.addAttribute("message", "ERROR!");
+		model.addAttribute("message", "Invaid username or password!");
 		return "forward:/login/form";
 	}
 	
 	@RequestMapping("/logout/success")
 	public String logout(Model model) {
 		model.addAttribute("message","Logout success!");
-		return "forward:/login/form";
+		return "forward:/";
 	}
 	
-	@ResponseBody
+
 	@RequestMapping("/unauthoried")
 	public String unauthoried() {
-		return "You have no permittion to use this page!";
+		return "forward:/login/form";
 	}
 	
 	@ResponseBody
@@ -95,5 +94,4 @@ public class SecurityController {
 	public String abc(){
 		return "Hello Director";
 	}
-	
 }

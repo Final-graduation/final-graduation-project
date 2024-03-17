@@ -2,11 +2,24 @@ app.controller("order-ctrl", function($scope, $http){
 	$scope.items = [];
 	$scope.form = {};
 	$scope.detail = [];
+
+	$scope.status = ['confirmed', 'delivering', 'completed', 'cancel']
+
 	const orderSection = $('.order-detail-section');
 
 	$http.get("/rest/orders/all").then(resp => {
 		$scope.items = resp.data;
 	})
+
+	$scope.updateStatus = function(item){
+		$http.put("/rest/orders/update", item).then(resp => {
+			console.log(resp.data)
+			alert('Successfully!');
+		}).catch(error => {
+			alert("Error");
+			console.log("Error :", error);
+		})
+	}
 
 	$scope.info = function(item) {
 		$http.get(`/rest/orders/detail?id=${item.id}`).then(resp => {

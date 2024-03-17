@@ -31,9 +31,11 @@ public class Product implements Serializable{
 	Integer id;
 	String name;
 	String image;
+	String image1;
+	String image2;
+	String image3;
 	String description;
 	Double price;
-	Integer inventory;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "createdate")
 	Date createDate = new Date();
@@ -43,5 +45,8 @@ public class Product implements Serializable{
 	Category category;
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
-	List<OrderDetail> orderDetails;	
+	List<OrderDetail> orderDetails;
+	@JsonIgnore
+	@OneToMany(mappedBy = "product")
+	List<ProductSize> productSizes;
 }

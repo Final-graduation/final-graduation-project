@@ -8,16 +8,24 @@
 				<th>Total amount</th>
 				<th>Phone number</th>
 				<th>Address</th>
+				<th>Status</th>
+				<th></th>
 			</tr>
 		</thead>
 		</tbody>
-		<tr ng-repeat="item in pager.items" class="table-product-row detail-row" ng-click="info(item)">
+		<tr ng-repeat="item in pager.items | orderBy: 'createDate'" class="table-product-row detail-row">
 			<td>{{$index + 1}}</td>
 			<td>{{item.account.username}}</td>
 			<td>{{item.createDate}}</td>
 			<td>{{item.totalAmount}}</td>
 			<td>{{item.phoneNumber}}</td>
 			<td>{{item.address}}</td>
+			<td class="order-status">
+				<select ng-model="item.status" ng-change="updateStatus(item)" ng-class="item.status">
+					<option ng-repeat="s in status" ng-value="s">{{s}}</option>
+				</select>
+			</td>
+			<td><i class="fa-solid fa-info" ng-click="info(item)"></i></td>
 		</tr>
 		</tbody>
 	</table>

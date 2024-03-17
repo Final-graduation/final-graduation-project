@@ -8,15 +8,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dao.OrderDAO;
 import com.app.entity.Order;
 import com.app.entity.OrderDetail;
+import com.app.entity.Product;
 import com.app.service.OrderService;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -27,6 +31,9 @@ public class OrderRestController {
 	
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	OrderDAO dao;
 
 	@PostMapping()
 	public Order create (@RequestBody JsonNode orderData) {
@@ -64,4 +71,8 @@ public class OrderRestController {
 		return orderService.getRevenueForAWeek();
 	}
 	
+	@PutMapping("update")
+	public Order update(@RequestBody Order order) {
+		return dao.save(order);
+	}
 }

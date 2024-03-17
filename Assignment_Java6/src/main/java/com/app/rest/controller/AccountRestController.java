@@ -29,4 +29,10 @@ public class AccountRestController {
 		}
 		return accountService.findAll();
 	}
+
+	@GetMapping("/signupCurrentDay")
+	public Integer signupCurrentDay() {
+		return accountService.countUserCurrentDay();
+	}
+	
 }

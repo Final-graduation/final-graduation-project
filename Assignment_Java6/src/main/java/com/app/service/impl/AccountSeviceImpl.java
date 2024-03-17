@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,8 @@ public class AccountSeviceImpl implements AccountService {
 		return adao.save(account);
 	}
 
-	
+	@Override
+	public Integer countUserCurrentDay() {
+		return adao.numberOfUserCurrentDay(new Date());
+	}
 }

@@ -42,10 +42,10 @@ import com.app.service.AuthorityService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-//	private CustomUserDetailsService userDetailService;
-//	public SecurityConfiguration(CustomUserDetailsService userDetailService) {
-//		this.userDetailService = userDetailService;
-//	}
+	// private CustomUserDetailsService userDetailService;
+	// public SecurityConfiguration(CustomUserDetailsService userDetailService) {
+	// this.userDetailService = userDetailService;
+	// }
 
 	@Autowired
 	AccountService accountService;
@@ -56,15 +56,15 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-//	        	.csrf().disable()
-//	        	.authorizeHttpRequests()
-//	            .requestMatchers("/").permitAll()
-//	            .requestMatchers("/user").hasRole("USER")
-//	            .requestMatchers("/admin").hasRole("ADMIN")
-//	            .anyRequest().authenticated()
-//	            .and()
-//	            .httpBasic()
-//	            .and().build();
+				// .csrf().disable()
+				// .authorizeHttpRequests()
+				// .requestMatchers("/").permitAll()
+				// .requestMatchers("/user").hasRole("USER")
+				// .requestMatchers("/admin").hasRole("ADMIN")
+				// .anyRequest().authenticated()
+				// .and()
+				// .httpBasic()
+				// .and().build();
 				// another way
 				.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> {
 					auth.requestMatchers("/order/**").authenticated();
@@ -72,13 +72,13 @@ public class SecurityConfiguration {
 					auth.requestMatchers("/rest/authorities").hasRole("DIRE");
 					auth.anyRequest().permitAll();
 				})
-//				.httpBasic(Customizer.withDefaults()).build();
+				// .httpBasic(Customizer.withDefaults()).build();
 				.formLogin().loginPage("/login/form")// dia chi url
 				.loginProcessingUrl("/login")// action form login
 				.defaultSuccessUrl("/", false)// trang sau khi dang nhap thanh cong
 				.failureUrl("/login/error")// dia chi url khi co loi
 				.usernameParameter("username").passwordParameter("password").and().logout().logoutUrl("/logout")// link
-																												// th:href="@{|/logout|}"
+				// th:href="@{|/logout|}"
 				.logoutSuccessUrl("/logout/success")// logout xong di dau
 				.and().exceptionHandling().accessDeniedPage("/unauthoried");// khong co quyen vao trang do
 		return http.build();
@@ -86,16 +86,10 @@ public class SecurityConfiguration {
 
 	@Bean
 	public InMemoryUserDetailsManager userDetailsManager() {
-
 		List<Account> list = accountService.findAll();
-		
 		Collection<UserDetails> users = new ArrayList<>();
-
 		for (int i = 0; i < list.size(); i++) {
-			// method findRoles return roles of username in the loop
 			List<String> roles = authorityService.findRoles(list.get(i).getUsername());
-
-			// cast list to array
 			String[] r = new String[roles.size()];
 			roles.toArray(r);
 
@@ -111,5 +105,4 @@ public class SecurityConfiguration {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

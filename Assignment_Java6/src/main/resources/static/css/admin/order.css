@@ -1,0 +1,50 @@
+.fa-info{
+  padding: 10px;
+}
+.fa-info:hover {
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.order-detail-section{
+  display: none;
+}
+
+.order-detail-section.active{
+  display: block;
+}
+
+.fa-xmark{
+  display: block;
+  float: right;
+  padding: 10px;
+}
+
+.fa-xmark:hover{
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.order-status > select {
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.order-status > .confirmed{
+  background-color: #4ABDAC;
+}
+
+
+.order-status > .delivering{
+  background-color: #FC4A1A;
+}
+
+.order-status > .completed{
+  background-color: #66cdaa;
+}
+
+.order-status > .cancel{
+  background-color: #D7263D;
+}

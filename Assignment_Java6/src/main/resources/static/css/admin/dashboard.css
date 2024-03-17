@@ -28,6 +28,10 @@
   padding: 10px
 }
 
+.overview-box strong {
+  color: var(--primary-color);
+}
+
 .overview-box p:first-child{
   margin-top: 0;
   margin-bottom: 15px;
@@ -39,4 +43,19 @@
 
 .overview-box strong{
   font-size: 20px;
+}
+
+#top3product{
+  height: 230px;
+  width: 230px;
+  margin: 0 auto;
+}
+
+#revenue {
+  margin-top: 40px;
+}
+
+.chart-title{
+  display: block;
+  text-align: center;
 }

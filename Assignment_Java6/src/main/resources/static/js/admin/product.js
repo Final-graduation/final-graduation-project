@@ -32,14 +32,64 @@ app.controller("product-ctrl", function ($scope, $http) {
 	$scope.items = [];
 	$scope.cates = [];
 	$scope.form = {};
+	$scope.initializeProductSize = function() {
+		$scope.s = {
+			id: null,
+			size: "S",
+			quantity: 0,
+			product: {
+				id: null
+			}
+		};
+		$scope.m = {
+			id: null,
+			size: "M",
+			quantity: 0,
+			product: {
+				id: null
+			}
+		};
+		$scope.l = {
+			id: null,
+			size: "L",
+			quantity: 0,
+			product: {
+				id: null
+			}
+		};
+		$scope.xl = {
+			id: null,
+			size: "XL",
+			quantity: 0,
+			product: {
+				id: null
+			}
+		};
+		$scope.xxl = {
+			id: null,
+			size: "XXL",
+			quantity: 0,
+			product: {
+				id: null
+			}
+		};	
+	}
 
-	$scope.initialize = function () {
-		//
+	$scope.initializeForm = function (){
 		$scope.form = {
 			createDate: new Date(),
 			image: "upload.png",
-			available: true
+			image1: "upload.png",
+			image2: "upload.png",
+			image3: "upload.png",
+			available: true,
+			price: 0
 		}
+	}
+
+	$scope.initialize = function() {
+		$scope.initializeForm();
+		
 		//load prodcuts
 		$http.get("/rest/products").then(resp => {
 			$scope.items = resp.data;
@@ -54,20 +104,25 @@ app.controller("product-ctrl", function ($scope, $http) {
 	}
 	//initialize
 	$scope.initialize();
-
+	$scope.initializeProductSize();
 	//delete form
 
-	$scope.reset = function () {
-		$scope.form = {
-			createDate: new Date(),
-			image: "upload.png",
-			available: true
-		}
+	$scope.reset = function() {
+		$scope.initializeForm();
+		$scope.initializeProductSize();
 	}
 	//dísplay to the form
 	$scope.edit = function (item) {
 		$scope.form = angular.copy(item);
-
+		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
+		$http.get(`/rest/productsize?id=${item.id}`).then(resp => {
+			let productSizes = resp.data;
+			sizes.forEach((size, index) => {
+				angular.extend(size, productSizes[index]);
+			});
+		})
+		console.log(sizes)
+		
 		listBtn.removeClass('active');
 		createBtn.addClass('active');
 		listTab.removeClass('active-tab');
@@ -77,9 +132,17 @@ app.controller("product-ctrl", function ($scope, $http) {
 
 	$scope.create = function () {
 		var item = angular.copy($scope.form);
+		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
 		$http.post(`/rest/products`, item).then(resp => {
+			let productId = resp.data.id;
 			resp.data.createDate = new Date(resp.data.createDate)
 			$scope.items.push(resp.data);
+
+			angular.forEach(sizes, function(size) {
+				size.product.id = productId;
+				$http.post('/rest/productsize', size);
+			});
+
 			$scope.reset();
 			$scope.changeDefaultTab();
 			alert("Create successfully!")
@@ -87,6 +150,7 @@ app.controller("product-ctrl", function ($scope, $http) {
 			alert("Error! Please try again");
 			console.log("Error :", error);
 		})
+	
 	}
 
 	$scope.changeDefaultTab = function () {
@@ -99,6 +163,12 @@ app.controller("product-ctrl", function ($scope, $http) {
 	//update the item
 	$scope.update = function () {
 		var item = angular.copy($scope.form);
+		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
+		let sizesOk = sizes.map((item) => angular.copy(item));
+		angular.forEach(sizesOk, function(size) {
+			$http.put('/rest/productsize/update', size);
+		});
+
 		$http.put(`/rest/products/${item.id}`, item).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
@@ -113,6 +183,13 @@ app.controller("product-ctrl", function ($scope, $http) {
 	//delete the item
 	$scope.delete = function (item) {
 		var item = angular.copy($scope.form);
+		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
+		let sizesOk = sizes.map((item) => angular.copy(item));
+		angular.forEach(sizesOk, function(size) {
+			console.log(size.id)
+			$http.delete(`/rest/productsize/delete/${size.id}`);
+		});
+
 		$http.delete(`/rest/products/${item.id}`).then(resp => {
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items.splice(index, 1);
@@ -125,33 +202,18 @@ app.controller("product-ctrl", function ($scope, $http) {
 		})
 	}
 
-	//delete the item
-	$scope.delete2 = function (item) {
-		$http.delete(`/rest/products/${item.id}`).then(resp => {
-			var index = $scope.items.findIndex(p => p.id == item.id);
-			$scope.items.splice(index, 1);
-			alert("Delete successfully!");
-		}).catch(error => {
-			alert("Error");
-			console.log("Error :", error);
-		})
-	}
-
-	//dislay image when selected
-	$scope.imageChanged = function (files) {
-		var data = new FormData();
-		data.append('file', files[0]);
-		console.log(data.get('file'));
-		$http.post('/rest/upload/images', data, {
-			transformRequest: angular.identity,
-			headers: { 'Content-Type': undefined }
-		}).then(resp => {
-			$scope.form.image = resp.data.name;
-			console.log(resp.data.name);
-		}).catch(error => {
-			alert("Error");
-			console.log("Error :", error);
-		})
+	$scope.imageChanged = function(files, imageName) {
+    var data = new FormData();
+    data.append('file', files[0]);
+    $http.post('/rest/upload/images', data, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+    }).then(resp => {
+        $scope.form[imageName] = resp.data.name;
+    }).catch(error => {
+        alert("Error");
+        console.log("Error :", error);
+    });
 	}
 
 	$scope.pager = {

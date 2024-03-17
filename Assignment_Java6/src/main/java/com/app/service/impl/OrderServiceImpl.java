@@ -1,6 +1,10 @@
 package com.app.service.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	OrderDetailDAO ddao;
+	
+	LocalDate endDate = LocalDate.now();
+	LocalDate startDate = endDate.minusDays(6);
+	Date start =  Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	Date end =  Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 	public Order create(JsonNode orderData) {
 
@@ -52,4 +61,33 @@ public class OrderServiceImpl implements OrderService {
 		return dao.findByUsername(username);
 	}
 
+	@Override
+	public Object getTotalAmountCurrentDay() {
+		return dao.totalAmountCurrentDay(new Date());
+	}
+
+	@Override
+	public Integer totalProductSold() {
+		return ddao.totalProductSoldCurrentDay(new Date());
+	}
+
+	@Override
+	public List<Object[]> top5ProductAWeek() {
+		return ddao.getTop5SellingProductsForWeek(start, end);
+	}
+
+	@Override
+	public List<Order> findAll(){
+		return dao.findAll();
+	}
+
+	@Override
+	public List<OrderDetail> getOrderDetail(Long orderId) {
+		return ddao.findByOrderId(orderId);
+	}
+
+	@Override
+	public List<Object[]> getRevenueForAWeek() {
+		return dao.getRevenueByDateRange(start, end);
+	}
 }

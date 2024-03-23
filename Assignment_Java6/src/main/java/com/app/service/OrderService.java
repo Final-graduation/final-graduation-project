@@ -17,7 +17,7 @@ public interface OrderService {
 	
 	List<Order> findAll();
 	//list all orders follow username
-	List<Order> findByUsername(String username);
+	List<Order> findByUsername(String username, String status);
 
 	Object getTotalAmountCurrentDay();
 

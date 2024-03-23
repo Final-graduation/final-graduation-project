@@ -1,0 +1,85 @@
+.order-detail-title {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.order-detail-home div:last-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.order-detail-home {
+  width: 70%;
+  margin: 0 auto;
+  border-bottom: 2px solid #000;
+  margin-bottom: 10px;
+}
+.order-detail-home span,
+.order-detail-home small,
+.order-detail-home h1,
+.order-detail-home h4{
+  color: grey;
+}
+
+.order-detail-home button,
+.order-detail-home a {
+  text-decoration: none;
+  background-color: #345DBB;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+}
+
+.order-detail-product-section {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.order-detail-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.order-detail-product div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumb-order {
+  margin-left: 190px;
+  margin-bottom: 30px !important;
+}
+
+.order-list-menu{
+  margin: 0 190px 10px 190px;
+  display: flex;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.order-list-menu a {
+  text-decoration: none;
+  width: 130px;
+  text-align: center;
+  color: grey;
+  cursor: pointer;
+}
+
+.no-order {
+  margin: 0 190px;
+}
+.order-list-menu a.active {
+  border-bottom: 5px solid var(--primary-color);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

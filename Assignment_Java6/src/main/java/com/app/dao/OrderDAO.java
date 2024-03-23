@@ -28,8 +28,8 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 //	List<Order> findAllByStatusAndOrdercreatedate(Boolean status,Date xemtheongay);
 	
 	
-	@Query(value="select o from Order o where o.account.username = ?1")
-	List<Order> findByUsername(String username);
+	@Query(value="select o from Order o where o.account.username = ?1 and o.status = ?2")
+	List<Order> findByUsername(String username, String status);
 
 	@Query("SELECT SUM(o.totalAmount) AS totalAmount, COUNT(o.id) AS orderCount FROM Order o WHERE o.createDate = ?1")
 	Object totalAmountCurrentDay(Date date);

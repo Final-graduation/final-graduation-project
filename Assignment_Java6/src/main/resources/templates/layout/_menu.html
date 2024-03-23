@@ -12,100 +12,28 @@
 			th:href="@{/home/form}" th:text="#{form}"></a> [<a href="?lang=vi">Tiếng
 			Việt</a>] [<a href="?lang=en">English</a>]
 	</nav>
+	
+	<div th:fragment="navbar">
+		<div class="home-nav w3-light-grey">
+			<div class="logo">
+				<a href="/"><i class="fa-solid fa-shirt fa-2x"></i></a>
+				<strong sec:authorize="isAuthenticated()">Hi <span  th:text="${name}"></span> <i class="fa-solid fa-hands-clapping"></i></strong>
+			</div>
 
-	<!-- header -->
-	<header th:fragment="navbar">
-		<!-- header inner -->
-		<div class="header">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-						<div class="full">
-							<div class="center-desk">
-								<div class="logo">
-									<a th:href="@{|/|}"><img th:src="@{|/images/logo.png|}"
-										alt="#" /></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-						<nav class="navigation navbar navbar-expand-md navbar-dark ">
-							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-target="#navbarsExample04"
-								aria-controls="navbarsExample04" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-							</button>
-							<div class="collapse navbar-collapse" id="navbarsExample04">
-								<ul class="navbar-nav mr-auto">
-									<li class="nav-item active"><a class="nav-link"
-										th:href="@{|/|}">Home</a></li>
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{|/about|}">About</a></li>
-
-									<li class="nav-item dropdown"><a
-										class="nav-link dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false"> Shop </a>
-										<ul class="dropdown-menu">
-											<li th:each="c:${cates}"><a class="dropdown-item"
-												th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
-											<li><hr class="dropdown-divider"></li>
-											<li><a class="dropdown-item" href="#">Best seller</a></li>
-										</ul></li>
-
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{|/contact|}">Contact Us</a></li>
-									<li class="nav-item d_none"><a class="nav-link" href="#"><i
-											class="fa fa-search" aria-hidden="true"></i></a></li>
-
-
-
-
-									<li class="nav-item dropdown" sec:authorize="isAuthenticated()"><a
-										class="nav-link dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false"> MyAccount
-									</a>
-										<ul class="dropdown-menu">
-											<li>
-												<div class="dropdown-item">
-													<img th:src="@{|/images/${image}|}"
-														style="max-width: 60px;"  class="w3-circle"/> <b th:text="${name}"></b>
-
-												</div>
-											</li>
-
-											<li><a class="dropdown-item" th:href="@{|/order/list|}"><i class="fa-solid fa-clipboard-list w3-margin-right"></i>My
-													order</a></li>
-											<li><a class="dropdown-item" th:href="@{|/logout|}"><i class="fa-solid fa-right-from-bracket w3-margin-right"></i>Log
-													out</a></li>
-											<li sec:authorize="hasAnyRole('STAF','DIRE')"><a
-												class="dropdown-item" th:href="@{|/admin|}"><i class="fa-solid fa-layer-group w3-margin-right"></i>Administration</a></li>
-										</ul></li>
-
-									<li class="nav-item" sec:authorize="!isAuthenticated()"><a
-										class="nav-link" th:href="@{|/login/form|}">Login</a></li>
-
-
-
-									<li class="nav-item"><a th:href="@{|/cart/view|}"
-										class="btn w3-yellow position-relative nav-link"> <i
-											class="fa fa-shopping-cart fa-sm"></i> <span
-											class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red w-50">
-												{{cart.count}}</span> <!-- tong don gia la {{cart.amount | number:2 }} -->
-									</a></li>
-
-
-
-								</ul>
-							</div>
-						</nav>
+			<div class="menu">
+				<div class="dropdown-home">
+					<a class="dropbtn-home" href="/product/list">Sản Phẩm</a>
+					<div class="dropdown-content-home">
+						<a th:each="c:${cates}" th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a>
 					</div>
 				</div>
+				<a href="/cart/view">Giỏ hàng ({{cart.count}})</a>
+				<a sec:authorize="isAuthenticated()" href="/order/list">Đơn hàng</a>
+				<a sec:authorize="hasAnyRole('STAF','DIRE')" href="/admin"><i class="fa-regular fa-user"></i> Quản trị viên</a>
+				<a sec:authorize="!isAuthenticated()" href="/login/form"><i class="fa-regular fa-user"></i> Đăng Nhập/Đăng kí</a>
+				<a sec:authorize="isAuthenticated()" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a>
 			</div>
 		</div>
-	</header>
-	<!-- end header inner -->
-	<!-- end header -->
+	</div>
 </body>
 </html>

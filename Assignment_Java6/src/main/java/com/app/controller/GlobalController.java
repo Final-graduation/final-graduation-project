@@ -32,6 +32,24 @@ public class GlobalController {
 		return request.getUserPrincipal() == null ? ""
 				: accountService.findById(request.getUserPrincipal().getName()).getFullname();
 	}
+
+	@ModelAttribute("phone")
+	String getPhone(HttpServletRequest request) {
+		return request.getUserPrincipal() == null ? ""
+				: accountService.findById(request.getUserPrincipal().getName()).getSdt();
+	}
+
+	@ModelAttribute("username")
+	String getUsername(HttpServletRequest request) {
+		return request.getUserPrincipal() == null ? ""
+				: accountService.findById(request.getUserPrincipal().getName()).getUsername();
+	}
+
+	@ModelAttribute("address")
+	String getAddress(HttpServletRequest request) {
+		return request.getUserPrincipal() == null ? ""
+				: accountService.findById(request.getUserPrincipal().getName()).getAddress();
+	}
 	
 	// @ModelAttribute("image")
 	// String getImage(HttpServletRequest request) {

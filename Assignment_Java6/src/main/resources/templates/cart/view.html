@@ -1,57 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Cart View</title>
+	<meta charset="ISO-8859-1">
+	<title>Cart View</title>
 </head>
-<body class="main-layout inner_posituong computer_page">
-	<section class="w3-container w3-section">
-		<div class="w3-text-grey">
-			<div class="w3-leftbar w3-text-grey w3-padding-right">
-				<p>
-					<b class="w3-margin-left">Shopping cart | View</b>
-				</p>
-			</div>
-		</div>
-		<div class="table-responsive  w3-section">
-			<table class="w3-table-all w3-animate-right">
+
+<body>
+	<div class="breadcrumb cart-breadcrumb">
+		<a href="/">Trang chủ</a>
+		<span>&nbsp;>&nbsp;</span>
+		<a href="/product/list">Sản phẩm</a>
+		<span>&nbsp;>&nbsp;</span>
+		<span>Cart</span>
+	</div>
+
+	<section class="cart-section">
+		<div class="table-responsive cart-table">
+			<table class="w3-table-all">
 				<tr class="w3-2021-inkwell">
-					<th>Id</th>
-					<th>Name</th>
-					<th>Photo</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Amount</th>
-					<th></th>
+					<th>STT</th>
+					<th>Tên</th>
+					<th>Hình ảnh</th>
+					<th>Giá</th>
+					<th>Size</th>
+					<th>Số lượng</th>
+					<th>Tổng</th>
+					<th><a href="javascript:void(0)" ng-click="cart.clear()">Xóa tất cả</a></th>
 				</tr>
 				<form action="/cart/update/${item.id}" method="post">
-					<tr ng-repeat="item in cart.items">
-						<td>{{item.id}}</td>
+					<tr ng-repeat="item in cart.items" class="table-product-row">
+						<td style="width: 10px;">{{$index + 1}}</td>
 						<td>{{item.name}}</td>
-						<td><img alt="images" ng-src="/images/{{item.image}}"
-							style="max-width: 100px;"></td>
-						<td>{{item.price |number :2}}</td>
-
-						<td><input ng-model="item.qty" class="w3-border w3-round"
-							type="number" name="qty" ng-change="cart.saveToLocalStorage()"
-							style="width: 60px;"></td>
-						<td>{{item.price * item.qty}}</td>
-						<td><button ng-click="cart.remove(item.id)"><i class="fas fa-minus-circle fa-2x" style="color: #e82121;"></i></button></td>
+						<td><img ng-src="/images/{{item.image}}"></td>
+						<td>{{item.price |number :1}}</td>
+						<td style="width: 85px;">{{item.size}}</td>
+						<td style="width: 85px;"><input ng-model="item.qty" class="w3-border w3-round" type="number" name="qty" min="1"
+								ng-change="cart.saveToLocalStorage()"></td>
+						<td style="width: 130px;">{{item.price * item.qty}}</td>
+						<td style="width: 85px;"><i class="fa-solid fa-minus" ng-click="cart.remove(item.id)"></i></td>
 					</tr>
 				</form>
 			</table>
+			<div ng-if="cart.items.length === 0" class="no-result-found">
+				<img src="/images/no-cart-image.png">
+			</div>
 		</div>
 
-		<div class="w3-bar">
-			<button ng-click="cart.clear()" class="w3-bar-item w3-right w3-red"><i class="fas fa-broom"></i> Clear
-				All</button>
-			<a type="button" th:href="@{|/order/checkout|}" class="w3-bar-item w3-green"><i class="fas fa-money-check-alt"></i> Check
-				out</a>
+		<div class="cart-pay">
+			<form>
+				<p class="w3-center">
+					<b>THÔNG TIN ĐƠN HÀNG</b>
+				</p>
+				<input type="hidden" id="username" th:value="${username}">
+				<p>
+					<label>Số điện thoại</label>
+					<input class="w3-input w3-border w3-round" name="sdt" id="user-sdt" th:value="${phone}" ng-model="order.phoneNumber" required>
+				</p>
+				<p>
+					<label>Địa chỉ nhận hàng</label>
+					<input class="w3-input w3-border w3-round" th:value="${address}" id="user-address" ng-model="order.address"
+						name="diachi" required>
+				</p>
+				<p>
+					<label>Phương thức thanh toán</label>
+					<select class="w3-select w3-border w3-round" name="option">
+						<option value="1">Thanh toán khi nhận hàng</option>
+						<option value="2">VN Pay</option>
+						<option value="3">Momo</option>
+					</select>
+				</p>
+				<div>
+					<b id="total-amount"> Total : {{cart.amount | number:1 }}$</b>
+					<button class="pay-button" ng-click="order.purchase()" ng-disabled="cart.amount === 0">Đặt hàng</button>
+				</div>
+			</form>
 		</div>
 	</section>
-
-
-
 </body>
 </html>

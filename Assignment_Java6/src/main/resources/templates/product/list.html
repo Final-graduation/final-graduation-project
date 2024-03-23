@@ -1,82 +1,116 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>List Product</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product</title>
 </head>
-<body class="main-layout inner_posituong computer_page">
-	<div class="w3-container w3-text-grey w3-margin-top">
-		<div class="w3-leftbar w3-text-grey w3-padding-right">
-			<p>
-				<b class="w3-margin-left"> Shop | [[${cname}]]</b>
-			</p>
-		</div>
-	</div>
-	<!-- Layout -->
 
-	<!-- Layout -->
-	<div class="w3-row-padding">
-		<div class="w3-col m3 s12">
-			<div class="w3-card w3-section">
-				<header class="w3-2021-inkwell">
-					<h4 class="w3-text-white w3-center">
-						<b>Filter</b>
-					</h4>
-				</header>
-				<div class="w3-container">
-					<label>Range</label>
-					<form th:action="@{|/product/range|}" method="post">
-					<div class="w3-bar">
-						<input name="from" class="w3-input w3-border w3-round-large w3-bar-item"
-							type="number" style="width: 65px;" /> <b class="w3-bar-item">-</b>
-						<input name="to" class="w3-input w3-border w3-round-large w3-bar-item"
-							type="number" style="width: 65px;" />
-						<button
-							class="w3-button w3-round-large w3-green w3-bar-item w3-margin-left">Filter</button>
-					</div>
-					</form>
-				<form th:action="@{|/product/search|}" method="post">
-					<label>Search</label> <input
-						class="w3-input w3-border w3-round-large" type="text" name="name" />
-				</form>
-				</div>
-				<br>
-			</div>
-		</div>
-		<div class="w3-col m9 s12 w3-margin-top">
+<body>
+  <div class="list-section">
+    <form class="box-left" th:action="@{|/product/filter|}" method="get">
+      <div>
+        <h5><i class="fa-solid fa-filter fa-sm"></i> BỘ LỌC TÌM KIẾM</h5>
+      </div>
+      <div class="filter-title">
+        <span>Khoảng giá </span><i class='bx bxs-down-arrow'></i>
+      </div>
+      <div class="filter-section active">
+        <div class="filter-content">
+          <div class="container range-price-content">
+            <div id="slider-range"></div>
+            <div class="slider-labels">
+              <span id="slider-range-value1"></span>
+              <span id="slider-range-value2"></span>
+            </div>
+            <input type="hidden" name="fromPrice" value="" class="fromPrice">
+            <input type="hidden" name="toPrice" value="" class="toPrice">
+          </div>
+        </div>
+      </div>
 
-			<!-- Product grid -->
-			<div class="w3-row w3-row-padding">
+      <div class="filter-title">
+        <span>Loại hàng</span><i class='bx bxs-down-arrow'></i>
+      </div>
+      <div class="filter-section active">
+        <div class="filter-content" th:each="category: ${categoryCounts}">
+          <div>
+            <input type="checkbox" name="categoryIds" th:id="${category.key.id}" th:value="${category.key.id}">
+            <label th:for="${category.key.id}">
+              [[${category.key.name}]]
+            </label>
+          </div>
+          <span>([[${category.value}]])</span>
+        </div>
+      </div>
 
-				<div class="w3-col l3 s6" th:each="item: ${items}">
-					<div class=" w3-card w3-margin-bottom" style="height: 240px;">
-						<div class="w3-display-container w3-padding-16 w3-center">
-							<img th:src="@{|/images/${item.image}|}" style="max-width: 80%">
-							<div class="w3-display-middle w3-display-hover">
-								<!-- <a th:href="@{|/product/${item.id}|}"
-									} class="w3-button w3-green">More details <i
-									class="fa-solid fa-eye"></i>
-								</a>  -->
-								<a type="button" th:attr="ng-click =@{|cart.add(${item.id})|}"
-									class="w3-button w3-green">Add to cart <i class="fa-solid fa-cart-plus"></i>
-								</a>
-							</div>
-							<p style="text-align: center;">
-								[[${item.name}]]<br> <b>[[${item.price}]]</b>
-							</p>
-						</div>
+      <button class="search-button">Tìm kiếm</button>
+    </form>
+    <div class="box-right">
+      <h5 class="result-title"><i class="fa-regular fa-lightbulb fa-sm"></i> KẾT QUẢ TÌM KIẾM CHO "[[${cname}]]"</h5>
+      <div class="search-option">
+        <form th:action="@{|/product/search|}" method="get">
+          <input name="name" placeholder="Nhập tên sản phẩm..">
+          <button>Tìm kiếm</button>
+        </form>
 
-					</div>
-				</div>
-			</div>
-			<!-- End Product Grid -->
+        <select onchange="location = this.value;">
+          <option value="" selected disabled>Sắp xếp</option>
+          <option
+            th:value="@{|/product/list?sortType=desc&pageNo=${page.number + 1}${cid != null ? '&amp;cid=' + cid : ''}|}">
+            Giá giảm dần</a></option>
+          <option
+            th:value="@{|/product/list?sortType=asc&pageNo=${page.number + 1}${cid != null ? '&amp;cid=' + cid : ''}|}">
+            Giá tăng dần</a></option>
+        </select>
+      </div>
+      <div class="product-item" th:if="${not #lists.isEmpty(page.content)}">
+        <div class="item" th:each="item: ${page.content}">
+          <a th:href="@{|/product/${item.id}|}"><img th:src="@{|/images/${item.image}|}" loading="lazy"></a>
+          <div class="product-title">[[${item.name}]]</div>
+          <div class="product-price">
+            <span>$[[${item.price}]]</span>
+            <div class="cart-hover-box">
+              <i class="fa-solid fa-cart-plus"></i>
+              <div class="cart-hover" th:item-size-id="${item.id}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="no-result-found" th:if="${#lists.isEmpty(page.content)}"><img
+          th:src="@{|/images/no-product-found.jpg|}"></div>
 
-		</div>
-	</div>
+      <div th:if="${page.totalPages > 1}">
+        <ul class="pagination">
+          <li th:class="${page.number + 1 == 1 ? 'page-item disabled' : 'page-item'}">
+            <a th:href="@{|/product/list?pageNo=1${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+              class="page-link">First</a>
+          </li>
+          <li th:class="${page.hasPrevious() ? 'page-item' : 'page-item disabled'}">
+            <a th:href="@{|/product/list?pageNo=${page.number}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+              class="page-link">Previous</a>
+          </li>
+          <li th:each="pageNum : ${#numbers.sequence(1, page.totalPages)}"
+            th:class="${page.number == pageNum - 1 ? 'page-item active' : 'page-item'}">
+            <a th:href="@{|/product/list?pageNo=${pageNum}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+              class="page-link" th:text="${pageNum}"></a>
+          </li>
+          <li th:class="${page.hasNext() ? 'page-item' : 'page-item disabled'}">
+            <a th:href="@{|/product/list?pageNo=${page.number + 2}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+              class="page-link">Next</a>
+          </li>
+          <li th:class="${page.number + 1 == page.totalPages ? 'page-item disabled' : 'page-item'}">
+            <a th:href="@{|/product/list?pageNo=${page.totalPages}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+              class="page-link">Last</a>
+          </li>
+        </ul>
+      </div>
 
-
-	<!-- And layout -->
-
+    </div>
+  </div>
+  <script th:src="@{|/js/list.js|}"></script>
 </body>
+
 </html>

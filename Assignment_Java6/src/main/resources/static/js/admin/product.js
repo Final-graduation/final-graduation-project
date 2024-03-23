@@ -1,28 +1,28 @@
-app.controller("product-ctrl", function($scope, $http) {
-  const productButton = $('.product-button');
-  const productTab = $('.tab-content');
-  const cancelBtn = $('.cancel-delete-btn');
-  const modalConfirm = $('#confirm');
-  const deleteBtn = $('.btn-delete-product');
+app.controller("product-ctrl", function ($scope, $http) {
+	const productButton = $('.product-button');
+	const productTab = $('.tab-content');
+	const cancelBtn = $('.cancel-delete-btn');
+	const modalConfirm = $('#confirm');
+	const deleteBtn = $('.btn-delete-product');
 
-  deleteBtn.on('click', function(){
-    modalConfirm.css('display', 'block');
-  })
+	deleteBtn.on('click', function () {
+		modalConfirm.css('display', 'block');
+	})
 
-  cancelBtn.on('click', function(){
-    modalConfirm.css('display', 'none');
-  })
+	cancelBtn.on('click', function () {
+		modalConfirm.css('display', 'none');
+	})
 
-  productButton.on('click', function(e) {
-    const btnTarget = e.target;
-    if (btnTarget.matches('button')){
-      $(this).children().removeClass('active')
-      $(btnTarget).addClass('active')
-    }
+	productButton.on('click', function (e) {
+		const btnTarget = e.target;
+		if (btnTarget.matches('button')) {
+			$(this).children().removeClass('active')
+			$(btnTarget).addClass('active')
+		}
 
-    productTab.removeClass('active-tab');
-    $(`#${btnTarget.id}-tab`).addClass('active-tab');
-  })
+		productTab.removeClass('active-tab');
+		$(`#${btnTarget.id}-tab`).addClass('active-tab');
+	})
 
 	const listBtn = $('#admin-list-product');
 	const createBtn = $('#admin-create-product');
@@ -112,7 +112,7 @@ app.controller("product-ctrl", function($scope, $http) {
 		$scope.initializeProductSize();
 	}
 	//dísplay to the form
-	$scope.edit = function(item) {
+	$scope.edit = function (item) {
 		$scope.form = angular.copy(item);
 		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
 		$http.get(`/rest/productsize?id=${item.id}`).then(resp => {
@@ -130,7 +130,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 	//add new item
 
-	$scope.create = function() {
+	$scope.create = function () {
 		var item = angular.copy($scope.form);
 		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
 		$http.post(`/rest/products`, item).then(resp => {
@@ -153,7 +153,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	
 	}
 
-	$scope.changeDefaultTab = function() {
+	$scope.changeDefaultTab = function () {
 		listBtn.addClass('active');
 		createBtn.removeClass('active');
 		listTab.addClass('active-tab');
@@ -161,7 +161,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//update the item
-	$scope.update = function() {
+	$scope.update = function () {
 		var item = angular.copy($scope.form);
 		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
 		let sizesOk = sizes.map((item) => angular.copy(item));
@@ -181,7 +181,7 @@ app.controller("product-ctrl", function($scope, $http) {
 	}
 
 	//delete the item
-	$scope.delete = function(item) {
+	$scope.delete = function (item) {
 		var item = angular.copy($scope.form);
 		let sizes = [$scope.s, $scope.m, $scope.l, $scope.xl, $scope.xxl];
 		let sizesOk = sizes.map((item) => angular.copy(item));

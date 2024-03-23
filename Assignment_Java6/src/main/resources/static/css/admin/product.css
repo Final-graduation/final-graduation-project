@@ -33,9 +33,15 @@
 
 .product-image {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   width: 40%;
+}
+
+.product-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
 
 .product-image > .box {

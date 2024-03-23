@@ -1,76 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>OrderDetail</title>
+	<meta charset="ISO-8859-1">
+	<title>OrderDetail</title>
 </head>
-<body class="main-layout inner_posituong computer_page">
 
-	<div class="w3-container">
-		<div class="w3-text-grey w3-section">
-			<div class="w3-leftbar w3-text-grey w3-padding-right">
-				<p>
-					<b class="w3-margin-left">Order</b>
-				</p>
+<body>
+	<div class="breadcrumb breadcrumb-order">
+		<a href="/">Trang chủ</a>
+		<span>&nbsp;>&nbsp;</span>
+		<a href="/order/list">Đơn hàng</a>
+		<span>&nbsp;>&nbsp;</span>
+		<span>Detail</span>
+	</div>
+
+	<div class="order-detail-home" th:object="${order}">
+		<div class="order-detail-title">
+			<h1>Mã đặt hàng: [[*{id}]]</h1>
+			<h1>Tổng tiền: [[*{totalAmount}]]</h1>
+		</div>
+		<div>
+			<span>Số điện thoại: [[*{phoneNumber}]]</span><br>
+			<span>Địa chỉ giao hàng: [[*{address}]]</span>
+		</div>
+		<div>
+			<small>Ngày đặt hàng: [[*{createDate}]]</small>
+			<button th:disabled="${order.status != 'confirmed'}">Hủy đơn hàng</button>
+		</div>
+	</div>
+	<div class="order-detail-product-section" th:object="${order}">
+		<div class="order-detail-product" th:each="detail: *{orderDetails}" th:object="${detail}">
+			<div>
+				<img alt="images" th:src="@{|/images/*{product.image}|}" style="max-width: 100px;">
+				<div>
+					<b>[[*{product.name}]]</b><br>
+					<small>Size: [[*{size}]]</small>
+				</div>
+			</div>
+			<div>
+				<b>[[*{product.price}]]$</b><br>
+				<small>Số lượng: [[*{quantity}]]</small>
 			</div>
 		</div>
-		<div class="table-responsive w3-margin-bottom">
-			<table class="w3-table-all w3-card w3-animate-opacity">
-				<thead>
-					<tr class="w3-2021-inkwell">
-						<th>OrderId</th>
-						<th>CreateDate</th>
-						<th>Address</th>
-						<th>Phone</th>
-					</tr>
-				</thead>
-
-				<tr th:object="${order}">
-					<td th:text="*{id}"></td>
-					<td th:text="*{createDate}"></td>
-					<td th:text="*{address}"></td>
-					<td th:text="*{sdt}"></td>
-				</tr>
-
-			</table>
-		</div>
-
-		<!-- Details -->
-		<div class="w3-text-grey w3-section">
-			<div class="w3-leftbar w3-text-grey w3-padding-right">
-				<p>
-					<b class="w3-margin-left">Order | details</b>
-				</p>
-			</div>
-		</div>
-		<div class="table-responsive w3-margin-bottom">
-			<table class="w3-table-all w3-card w3-animate-opacity"
-				th:object="${order}">
-				<thead>
-					<tr class="w3-2021-inkwell">
-						<th>ProductId</th>
-						<th>ProductName</th>
-						<th>Photo</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Total</th>
-					</tr>
-				</thead>
-
-				<tr th:each="detail: *{orderDetails}" th:object="${detail}">
-					<td>[[*{product.id}]]</td>
-					<td>[[*{product.name}]]</td>
-					<td><img alt="images" th:src="@{|/images/*{product.image}|}"
-							style="max-width: 100px;"></td>
-					<td>[[*{price}]]</td>
-					<td>[[*{quantity}]]</td>
-					<td>[[*{price*quantity}]]</td>
-				</tr>
-
-			</table>
-		</div>
-		<!-- End details -->
 	</div>
 </body>
+
 </html>

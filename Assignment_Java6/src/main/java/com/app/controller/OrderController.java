@@ -20,7 +20,10 @@ public class OrderController {
 
 	@RequestMapping("list")
 	public String list(Model model, HttpServletRequest request) {
-		model.addAttribute("orders", orderService.findByUsername(request.getRemoteUser()));
+		model.addAttribute("orders", orderService.findByUsername(request.getRemoteUser(), "confirmed"));
+		model.addAttribute("deliveringOrders", orderService.findByUsername(request.getRemoteUser(), "delivering"));
+		model.addAttribute("completedOrders", orderService.findByUsername(request.getRemoteUser(), "completed"));
+		model.addAttribute("cancelOrders", orderService.findByUsername(request.getRemoteUser(), "cancel"));
 		return "order/list";
 	}
 

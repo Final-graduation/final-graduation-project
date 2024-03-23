@@ -1,200 +1,83 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi Tiết Sản Phẩm</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"> </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-  <link rel="stylesheet" href="/Assignment_Java6/src/main/resources/static/css/styleDetail.css">
 </head>
-<style>
-
-</style>
 
 <body>
-  <!-- Bắt Đầu Trang Chi Tiết Sản Phẩm -->
-  <div class="card mb-3">
-    <div class="row g-0">
-
-      <!-- Hình Sản Phẩm -->
-      <div class="col-md-4">
-        <img src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoacConVaiDu.jpg" class="img-fluid rounded-start" alt="Áo Khoác Có Vải Dù">
+  <div class="breadcrumb">
+    <a href="/">Trang chủ</a>
+    <span>&nbsp;>&nbsp;</span>
+    <a href="/product/list">Sản phẩm</a>
+    <span>&nbsp;>&nbsp;</span>
+    <span>[[${product.name}]]</span>
+  </div>
+  <div class="detail-container">
+    <div class="flex-left">
+      <img th:src="@{|/images/${product.image}|}" alt="" class="main-img">
+      <div class="thumbnail-container">
+        <img th:src="@{|/images/${product.image}|}" alt="" class="thumbnail-img add-border">
+        <img th:src="@{|/images/${product.image1}|}" alt="" class="thumbnail-img">
+        <img th:src="@{|/images/${product.image2}|}" alt="" class="thumbnail-img">
+        <img th:src="@{|/images/${product.image2}|}" alt="" class="thumbnail-img">
       </div>
+    </div>
+    <div class="flex-right">
+      <h1 class="home-product-name">[[${product.name}]]</h1>
+      <strike>$[[${product.price + 1000}]]</strike>
+      <h1 class="home-product-price w3-text-red">$[[${product.price}]]</h1>
+      <div>
+        <select name="size-product" id="size-product">
+          <option th:each="s:${size}" th:value="${s.size}" th:disabled="${s.quantity == 0}">Size [[${s.size}]]
+            ([[${s.quantity}]])</option>
+        </select>
+        <input type="number" value="1" id="quantity-product" min="1">
+        <div>
+          <button class="add-to-cart" th:attr="ng-click=@{|cart.add(${product.id}, cart.getsize(), cart.getquantity())|}">Thêm
+            vào giỏ hàng</button>
+        </div>
+        <div> <button class="buy-product" th:attr="ng-click=@{|cart.addAndPay(${product.id}, cart.getsize(), cart.getquantity())|}">Mua ngay</button></div>
+      </div>
+    </div>
+  </div>
 
-      <!-- Thông Tin Chi Tiết Về Sản Phẩm -->
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-md-12">
+  <div class="description">
+    <h4>CHI TIẾT SẢN PHẨM</h4>
+    <p>[[${product.description}]]</p>
+  </div>
 
-            <!-- Tên Sản Phẩm - Mã Sản Phẩm -->
-            <span class="productName">Áo Khoác Có Nón Vải Dù Chống Nắng Biểu Tượng Dáng Rộng BST Thiết Kế Thần Cổ Đại
-              Horus Ver5</span>
-            <div class="row">
-              <div class="col-8">
-                <p style="font-size:14px;">Mã số: #0021531</p>
-              </div>
+  <div class="recommend-product">
+    <h4>SẢN PHẨM TƯƠNG TỰ</h4>
+    <div class="product-item" th:if="${not #lists.isEmpty(page.content)}">
+      <div class="item" th:each="item: ${page.content}">
+        <a th:href="@{|/product/${item.id}|}"><img th:src="@{|/images/${item.image}|}" loading="lazy"></a>
+        <div class="product-title">[[${item.name}]]</div>
+        <div class="product-price">
+          <span>$[[${item.price}]]</span>
+          <div class="cart-hover-box">
+            <i class="fa-solid fa-cart-plus"></i>
+            <div class="cart-hover" th:item-size-id="${item.id}">
             </div>
-            <h5 class="text-black sale01day"><img style="height:24px; margin-bottom:10px;" src="/Assignment_Java6/src/main/resources/static/images/detail/IconLua.png">
-              OUTLET GU THIẾT KẾ</h5>
-            <!-- Kết Thúc -->
-
-            <!-- Giá Sản Phẩm -->
-            <h6>Giá gốc: <span class="price-goc">427,000</span> đ</h6>
-            <h5 class="text-black mb-2">Giá Sale: <span class="price">256,200</span> đ&nbsp;&nbsp;(Tiết kiệm <span
-                class="">-170,800</span> đ)</h5>
-            <p class="text-black mb-1">Áp dụng từ 1/1/2024 cho đến khi hết hàng, sản phẩm sẽ ngưng sản xuất</p>
-            <!-- Kết Thúc -->
-
-            <!-- Thanh Phần Trăm -->
-            <div class="progress mb-2">
-              <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="4597" aria-valuemin="0"
-                aria-valuemax="5500">83%</div>
-            </div>
-            <!-- Kết Thúc -->
-
-            <!-- Bảng Số Lượng Hàng Theo Size -->
-            <table class="table table-condensed table-productvariants">
-              <tbody>
-                <tr>
-                  <td>Nâu, S</td>
-                  <td class="text-right">
-                    <a class="dsCuaHangCoTonKho text-black" href="javascript:void(0);" data-placement="left"
-                      data-content="<div id=&quot;dsCuaHangConHang&quot;><div><div id=&quot;rIndex0&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse0&quot; aria-controls=&quot;collapse0&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tp. Hồ Chí Minh</a></h5></div><div id=&quot;collapse0&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex0&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Q.5: 190 Nguyễn Trãi, P.3</p></div></div></div>"
-                      data-html="true" data-original-title="" title="">
-                      <b>1</b> CH còn
-                    </a>
-                  </td>
-                  <td class="text-right">
-                    <span style="color:#ff0000"> Sale &nbsp;<b>256,200</b>đ &nbsp;&nbsp;</span>
-                    <span><b>Bán tại CH</b></span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nâu, M</td>
-                  <td class="text-right">
-                    <a class="dsCuaHangCoTonKho text-black" href="javascript:void(0);" data-placement="left"
-                      data-content="<div id=&quot;dsCuaHangConHang&quot;><div><div id=&quot;rIndex0&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse0&quot; aria-controls=&quot;collapse0&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tây Nam Bộ</a></h5></div><div id=&quot;collapse0&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex0&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Cần Thơ 2 - 45 Đg. 3 Tháng 2, Q.Ninh Kiều, Cần Thơ</p></div></div><div><div id=&quot;rIndex1&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse1&quot; aria-controls=&quot;collapse1&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Đông Nam Bộ &amp; Tây Nguyên</a></h5></div><div id=&quot;collapse1&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex1&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Bình Dương: 187 Yersin, Tp.TDM</p></div></div><div><div id=&quot;rIndex2&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse2&quot; aria-controls=&quot;collapse2&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tp. Hồ Chí Minh</a></h5></div><div id=&quot;collapse2&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex2&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Q.5: 190 Nguyễn Trãi, P.3</p><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Q.10: 770F Sư Vạn Hạnh Q.10</p></div></div></div>"
-                      data-html="true" data-original-title="" title="">
-                      <b>4</b> CH còn
-                    </a>
-                  </td>
-                  <td class="text-right">
-                    <span style="color:#ff0000"> Sale &nbsp;<b>256,200</b>đ &nbsp;&nbsp;</span>
-                    <span><b>Bán tại CH</b></span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nâu, L</td>
-                  <td class="text-right">
-                    <a class="dsCuaHangCoTonKho text-black" href="javascript:void(0);" data-placement="left"
-                      data-content="<div id=&quot;dsCuaHangConHang&quot;><div><div id=&quot;rIndex0&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse0&quot; aria-controls=&quot;collapse0&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tây Nam Bộ</a></h5></div><div id=&quot;collapse0&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex0&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Bến Tre: 209 Đồng Khởi</p><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Cần Thơ 2 - 45 Đg. 3 Tháng 2, Q.Ninh Kiều, Cần Thơ</p></div></div><div><div id=&quot;rIndex1&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse1&quot; aria-controls=&quot;collapse1&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Đông Nam Bộ &amp; Tây Nguyên</a></h5></div><div id=&quot;collapse1&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex1&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Bình Dương: 187 Yersin, Tp.TDM</p></div></div><div><div id=&quot;rIndex2&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse2&quot; aria-controls=&quot;collapse2&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tp. Hồ Chí Minh</a></h5></div><div id=&quot;collapse2&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex2&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Q.5: 190 Nguyễn Trãi, P.3</p></div></div></div>"
-                      data-html="true" data-original-title="" title="">
-                      <b>4</b> CH còn
-                    </a>
-                  </td>
-                  <td class="text-right">
-                    <span style="color:#ff0000"> Sale &nbsp;<b>256,200</b>đ &nbsp;&nbsp;</span>
-                    <span><b>Bán tại CH</b></span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nâu, XL</td>
-                  <td class="text-right">
-                    <a class="dsCuaHangCoTonKho text-black" href="javascript:void(0);" data-placement="left"
-                      data-content="<div id=&quot;dsCuaHangConHang&quot;><div><div id=&quot;rIndex0&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse0&quot; aria-controls=&quot;collapse0&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tây Nam Bộ</a></h5></div><div id=&quot;collapse0&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex0&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Cần Thơ 2 - 45 Đg. 3 Tháng 2, Q.Ninh Kiều, Cần Thơ</p></div></div><div><div id=&quot;rIndex1&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse1&quot; aria-controls=&quot;collapse1&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Đông Nam Bộ &amp; Tây Nguyên</a></h5></div><div id=&quot;collapse1&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex1&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Bình Dương: 187 Yersin, Tp.TDM</p></div></div><div><div id=&quot;rIndex2&quot;><h5 class=&quot;mb-0&quot;><a href=&quot;javascript:void(0);&quot; title=&quot;#collapse2&quot; aria-controls=&quot;collapse2&quot; class=&quot;btn btn-link&quot;><i class=&quot;fa fa-map-signs&quot;></i>&amp;nbsp;&amp;nbsp;Tp. Hồ Chí Minh</a></h5></div><div id=&quot;collapse2&quot; class=&quot;collapse&quot; aria-labelledby=&quot;rIndex2&quot; data-parent=&quot;#dsCuaHangConHang&quot;><p style='text-align:left;'><i class=&quot;fa fa-map-marker&quot;></i>&amp;nbsp;&amp;nbsp;YaMe Q.10: 770F Sư Vạn Hạnh Q.10</p></div></div></div>"
-                      data-html="true" data-original-title="" title="">
-                      <b>3</b> CH còn
-                    </a>
-                  </td>
-                  <td class="text-right">
-                    <span style="color:#ff0000"> Sale &nbsp;<b>256,200</b>đ &nbsp;&nbsp;</span>
-                    <span><b>Bán tại CH</b></span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- Kết Thúc Bảng -->
-
-            <!-- Mô Tả Sản Phẩm -->
-            <div class="row mb-3">
-              <div class="col-12">
-                <div id="moTaSanPham" class="compressed">
-                  <h6 class="display-6"><b>Mô tả sản phẩm</b></h6>
-                  Áo Khoác Classic Thần Cổ Đại Horus Ver5<br>
-                  Chất liệu: Dù Polyester<br>
-                  Thành phần: 100% Polyester<br>
-                  -Sử dụng công nghệ in chuyển nhiệt trên vải tạo nên những họa tiết sắc nét sinh động.<br>
-                  -Hình in không gãy cộm, do các hạt mực ở thể khí đã thấm sâu vào các sợi vải. <br>
-                  -Sản phẩm in cho hình ảnh chân thực, bền hơn, ít để phai màu hơn so với các công nghê mực in khác. <br>
-                    + Họa tiết in chuyển nhiệt + Thêu
-
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
+  <script>
+    const thumbnails = document.querySelectorAll(".thumbnail-img");
 
-  <div class="row HinhAnhSanPham">
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/BangSize.jpg"
-        alt="c907edaf-a52b-0d00-c892-001a12b14d36" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac01.jpg"
-        alt="9e6826c0-d163-0300-6e72-001a12b14cdf" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac02.jpg"
-        alt="cb837942-aaef-1601-c964-001a12c32e3e" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac05.jpg"
-        alt="eb94f67a-00e6-0600-3725-001a12b14d06" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac04.jpg"
-        alt="4accb02e-eeab-0400-a10c-001a12b14ceb" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac03.jpg"
-        alt="aaede156-132d-0500-9abf-001a12b14cf5" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac06.jpg"
-        alt="f7f629df-4502-0700-e09f-001a12b14d0e" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac07.jpg"
-        alt="3fbb8231-04fb-0800-3f68-001a12b14d17" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac08.jpg"
-        alt="0fd54db6-a98f-0900-00b8-001a12b14d1f" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac09.jpg"
-        alt="28852a0e-75c7-0a00-96a2-001a12b14d25" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac10.jpg"
-        alt="69315383-3f47-0b00-c734-001a12b14d2a" style="margin: auto;">
-    </div>
-    <div class="col-12 col-md-6 mb-1 px-1 aos-init" data-aos="zoom-in">
-      <img class="img-fluid text-center detailImageItem" loading="lazy" src="/Assignment_Java6/src/main/resources/static/images/detail/AoKhoac11.jpg"
-        alt="3223e7f3-2864-0c00-47b7-001a12b14d33" style="margin: auto;">
-    </div>
-  </div>
-
-  <!-- Kết Thúc Trang Chi Tiết Sản Phẩm -->
+    thumbnails.forEach(function (thumbnail) {
+      thumbnail.addEventListener("click", function () {
+        const imagePath = this.getAttribute("src");
+        thumbnails.forEach(e => e.classList.remove('add-border'));
+        this.classList.add('add-border');
+        document.querySelector(".main-img").setAttribute("src", imagePath);
+      });
+    });
+  </script>
 </body>
 
 </html>

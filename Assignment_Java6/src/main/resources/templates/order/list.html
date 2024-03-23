@@ -1,65 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout.html :: dynamic(~{::title},~{::body})}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>My orders</title>
+	<meta charset="ISO-8859-1">
+	<title>My orders</title>
 </head>
+
 <body class="main-layout inner_posituong computer_page">
-	<div class="w3-container w3-text-grey w3-margin-top">
-		<div class="w3-leftbar w3-text-grey w3-padding-right">
-			<p>
-				<b class="w3-margin-left"> My orders</b>
-			</p>
-		</div>
-	</div>
-	<!-- Layout -->
-	<div class="w3-row-padding">
-		<div class="w3-col m3 s12">
-			<div class="w3-card w3-section">
-				<header class="w3-2021-inkwell">
-					<h4 class="w3-text-white w3-center"><b>Filter</b></h4>
-				</header>
 
-
-				<form action="/site/xemtheongay" method="post" class="w3-container">
-					<span>Date </span> <input
-						class="w3-input w3-bar-item w3-border w3-round-large" name="ngay"
-						value="${ngay}" type="date" onchange="this.form.submit()">
-					<label>Search</label> <input
-						class="w3-input w3-border w3-round-large" type="text">
-				</form>
-				<br>
-			</div>
-		</div>
-		<div class="w3-col m9 s12 w3-margin-top">
-			<div class="table-responsive w3-margin-bottom">
-				<table class="w3-table-all w3-card w3-animate-opacity">
-					<thead>
-						<tr class="w3-2021-inkwell">
-							<th>No</th>
-							<th>OrderId</th>
-							<th>CreateDate</th>
-							<th>Address</th>
-							<th>Phone</th>
-							<th></th>
-						</tr>
-					</thead>
-
-					<tr th:each="order,state : ${orders}">
-						<td>[[${state.index+1}]]</td>
-						<td>[[${order.id}]]</td>
-						<td>[[${order.createDate}]]</td>
-						<td>[[${order.address}]]</td>
-						<td>[[${order.sdt}]]</td>
-						<td><a th:href="@{|/order/detail/${order.id}|}">Details</a></td>
-					</tr>
-
-				</table>
-			</div>
-		</div>
+	<div class="breadcrumb breadcrumb-order">
+		<a href="/">Trang chủ</a>
+		<span>&nbsp;>&nbsp;</span>
+		<span>Đơn hàng</span>
 	</div>
 
-	<!-- EndLayout -->
+	<nav class="order-list-menu">
+		<a id="confirmed" class="active">Đã xác nhận ([[${#lists.size(orders)}]])</a>
+		<a id="delivering">Đang giao ([[${#lists.size(deliveringOrders)}]])</a>
+		<a id="completed">Giao thành công ([[${#lists.size(completedOrders)}]])</a>
+		<a id="cancel">Đã hủy ([[${#lists.size(cancelOrders)}]])</a>
+	</nav>
+	<section id="confirmed-section">
+		<div th:if="${not #lists.isEmpty(orders)}" class="order-detail-home" th:each="order,state : ${orders}">
+			<div class="order-detail-title">
+				<h4>Mã đặt hàng: [[${order.id}]]</h4>
+				<h4>Tổng tiền: [[${order.totalAmount}]]</h4>
+			</div>
+			<div>
+				<span>Số điện thoại: [[${order.phoneNumber}]]</span><br>
+				<span>Địa chỉ giao hàng: [[${order.address}]]</span>
+			</div>
+			<div>
+				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
+				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(orders)}" class="no-order">
+			<small>Chưa có đơn hàng nào.</small>
+		</div>
+	</section>
+
+	<!------->
+	<section class="d-none" id="delivering-section">
+		<div th:if="${not #lists.isEmpty(deliveringOrders)}" class="order-detail-home"
+			th:each="order,state : ${deliveringOrders}">
+			<div class="order-detail-title">
+				<h4>Mã đặt hàng: [[${order.id}]]</h4>
+				<h4>Tổng tiền: [[${order.totalAmount}]]</h4>
+			</div>
+			<div>
+				<span>Số điện thoại: [[${order.phoneNumber}]]</span><br>
+				<span>Địa chỉ giao hàng: [[${order.address}]]</span>
+			</div>
+			<div>
+				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
+				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(deliveringOrders)}" class="no-order">
+			<small>Chưa có đơn hàng nào.</small>
+		</div>
+	</section>
+
+	<!----->
+	<section class="d-none" id="completed-section">
+		<div th:if="${not #lists.isEmpty(completedOrders)}" class="order-detail-home"
+			th:each="order,state : ${completedOrders}">
+			<div class="order-detail-title">
+				<h4>Mã đặt hàng: [[${order.id}]]</h4>
+				<h4>Tổng tiền: [[${order.totalAmount}]]</h4>
+			</div>
+			<div>
+				<span>Số điện thoại: [[${order.phoneNumber}]]</span><br>
+				<span>Địa chỉ giao hàng: [[${order.address}]]</span>
+			</div>
+			<div>
+				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
+				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(completedOrders)}" class="no-order">
+			<small>Chưa có đơn hàng nào.</small>
+		</div>
+	</section>
+	<!------>
+	<section class="d-none" id="cancel-section">
+		<div th:if="${not #lists.isEmpty(cancelOrders)}" class="order-detail-home" th:each="order,state : ${cancelOrders}">
+			<div class="order-detail-title">
+				<h4>Mã đặt hàng: [[${order.id}]]</h4>
+				<h4>Tổng tiền: [[${order.totalAmount}]]</h4>
+			</div>
+			<div>
+				<span>Số điện thoại: [[${order.phoneNumber}]]</span><br>
+				<span>Địa chỉ giao hàng: [[${order.address}]]</span>
+			</div>
+			<div>
+				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
+				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(cancelOrders)}" class="no-order">
+			<small>Chưa có đơn hàng nào.</small>
+		</div>
+	</section>
+
+	<script>
+		$(document).ready(function () {
+			$(".order-list-menu a").click(function () {
+				$(".order-list-menu a").removeClass("active");
+				$(this).addClass("active");
+				const targetId = $(this).attr("id");
+				const section = $('section');
+				section.addClass('d-none');
+				$("#" + targetId + "-section").removeClass("d-none");
+			});
+		});
+	</script>
 </body>
+
 </html>

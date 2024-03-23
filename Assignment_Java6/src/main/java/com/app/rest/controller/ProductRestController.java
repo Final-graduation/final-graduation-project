@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dao.ProductDAO;
 import com.app.entity.Product;
+import com.app.entity.ProductSize;
 import com.app.service.ProductService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin("*")
 @RestController
@@ -23,6 +27,9 @@ public class ProductRestController {
 	
 	@Autowired
 	ProductService productService;
+
+	@Autowired
+	ProductDAO pdao;
 	
 	@GetMapping("{id}")
 	public Product getOne(@PathVariable("id") Integer id) {
@@ -47,5 +54,10 @@ public class ProductRestController {
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		productService.delete(id);
+	}
+
+	@GetMapping("size/{id}")
+	public List<ProductSize> getMethodName(@PathVariable Integer id) {
+		return pdao.findSizesByProductId(id);
 	}
 }

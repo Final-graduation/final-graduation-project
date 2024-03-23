@@ -12,48 +12,28 @@
 			th:href="@{/home/form}" th:text="#{form}"></a> [<a href="?lang=vi">Tiếng
 			Việt</a>] [<a href="?lang=en">English</a>]
 	</nav>
-
-	<!-- header -->
+	
 	<div th:fragment="navbar">
-		<!-- header inner -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light"
-		style="width: 85%; height: auto; margin-top: 10px; margin-left: 8%;">
-		<div class="container-fluid">
-		  <a class="navbar-brand" href="#"><b>FASHION</b></a>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 50%;">
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#">SẢN PHẨM</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#">GIỚI THIỆU</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#">SALE</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#">CSKH</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#">LIFESTYLE</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="#"><i class="fa fa-shopping-cart"
-					style="font-size:24px"></i></a>
-			  </li>
-			</ul>
-			<form class="d-flex">
-			  <button class="btn btn-outline-success" type="SignUp" style="width: 130px;">SIGN UP</button>
-			</form>
-		  </div>
+		<div class="home-nav w3-light-grey">
+			<div class="logo">
+				<a href="/"><i class="fa-solid fa-shirt fa-2x"></i></a>
+				<strong sec:authorize="isAuthenticated()">Hi <span  th:text="${name}"></span> <i class="fa-solid fa-hands-clapping"></i></strong>
+			</div>
+
+			<div class="menu">
+				<div class="dropdown-home">
+					<a class="dropbtn-home" href="/product/list">Sản Phẩm</a>
+					<div class="dropdown-content-home">
+						<a th:each="c:${cates}" th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a>
+					</div>
+				</div>
+				<a href="/cart/view">Giỏ hàng ({{cart.count}})</a>
+				<a sec:authorize="isAuthenticated()" href="/order/list">Đơn hàng</a>
+				<a sec:authorize="hasAnyRole('STAF','DIRE')" href="/admin"><i class="fa-regular fa-user"></i> Quản trị viên</a>
+				<a sec:authorize="!isAuthenticated()" href="/login/form"><i class="fa-regular fa-user"></i> Đăng Nhập/Đăng kí</a>
+				<a sec:authorize="isAuthenticated()" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a>
+			</div>
 		</div>
-	  </nav>
 	</div>
-	<!-- end header inner -->
-	<!-- end header -->
 </body>
 </html>

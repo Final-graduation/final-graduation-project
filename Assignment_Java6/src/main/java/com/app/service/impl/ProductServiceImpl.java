@@ -3,7 +3,9 @@ package com.app.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -23,14 +25,6 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return pdao.findAll();
 	}
-
-
-	@Override
-	public List<Product> findByCategoryId(String cid) {
-		// TODO Auto-generated method stub
-		return pdao.findByCategoryId(cid);
-	}
-
 
 	@Override
 	public Product findById(Integer id) {
@@ -59,17 +53,4 @@ public class ProductServiceImpl implements ProductService{
 		pdao.deleteById(id);
 	}
 
-
-	@Override
-	public List<Product> findByNameAndCatogory(String name, String cid) {
-		// TODO Auto-generated method stub
-		return pdao.findByNameAndCatogory(name, cid);
-	}
-
-
-	@Override
-	public List<Product> findRange(Double from, Double to) {
-		// TODO Auto-generated method stub
-		return pdao.findByPriceBetween(from,to);
-	}
 }

@@ -245,22 +245,4 @@ app.controller("product-ctrl", function ($scope, $http) {
 			this.page = this.count - 1;
 		}
 	}
-
-
-	// js trang sản phẩm
-
-	function toggleVisibility(boxId) {
-		var box = document.getElementById(boxId);
-		var arrowIcon = box.querySelector('.bx.bxs-down-arrow');
-		box.classList.toggle("collapsed");
-		arrowIcon.classList.toggle("rotated");
-	}
-
-	function showSecondImage(img) {
-		img.nextElementSibling.style.display = "block";
-	}
-
-	function hideSecondImage(img) {
-		img.nextElementSibling.style.display = "none";
-	}
 });

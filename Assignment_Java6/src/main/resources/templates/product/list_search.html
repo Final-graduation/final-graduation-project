@@ -50,18 +50,17 @@
     <div class="box-right">
       <h5 class="result-title"><i class="fa-regular fa-lightbulb fa-sm"></i> KẾT QUẢ TÌM KIẾM CHO "[[${cname}]]"</h5>
       <div class="search-option">
-        <form th:action="@{|/product/search|}" method="get">
+        <form th:action="@{|/product/search|}" method="post">
           <input name="name" placeholder="Nhập tên sản phẩm..">
           <button>Tìm kiếm</button>
         </form>
-
         <select onchange="location = this.value;">
           <option value="" selected disabled>Sắp xếp</option>
           <option
-            th:value="@{|/product/list?sortType=desc&pageNo=${page.number + 1}${cid != null ? '&amp;cid=' + cid : ''}|}">
+            th:value="@{|/product/search?sortType=desc&pageNo=${page.number + 1}${name != null ? '&amp;name=' + name : ''}|}">
             Giá giảm dần</a></option>
           <option
-            th:value="@{|/product/list?sortType=asc&pageNo=${page.number + 1}${cid != null ? '&amp;cid=' + cid : ''}|}">
+            th:value="@{|/product/search?sortType=asc&pageNo=${page.number + 1}${name != null ? '&amp;name=' + name : ''}|}">
             Giá tăng dần</a></option>
         </select>
       </div>
@@ -85,24 +84,24 @@
       <div th:if="${page.totalPages > 1}">
         <ul class="pagination">
           <li th:class="${page.number + 1 == 1 ? 'page-item disabled' : 'page-item'}">
-            <a th:href="@{|/product/list?pageNo=1${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+            <a th:href="@{|/product/search?pageNo=1${name != null ? '&amp;name=' + name : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
               class="page-link">First</a>
           </li>
           <li th:class="${page.hasPrevious() ? 'page-item' : 'page-item disabled'}">
-            <a th:href="@{|/product/list?pageNo=${page.number}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+            <a th:href="@{|/product/search?pageNo=${page.number}${name != null ? '&amp;name=' + name : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
               class="page-link">Previous</a>
           </li>
-          <li th:each="pageNum : ${#numbers.sequence(1, page.totalPages)}"
+          <li th:each="pageNum : ${#numbers.sequence(1  , page.totalPages)}"
             th:class="${page.number == pageNum - 1 ? 'page-item active' : 'page-item'}">
-            <a th:href="@{|/product/list?pageNo=${pageNum}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+            <a th:href="@{|/product/search?pageNo=${pageNum}${name != null ? '&amp;name=' + name : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
               class="page-link" th:text="${pageNum}"></a>
           </li>
           <li th:class="${page.hasNext() ? 'page-item' : 'page-item disabled'}">
-            <a th:href="@{|/product/list?pageNo=${page.number + 2}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+            <a th:href="@{|/product/search?pageNo=${page.number + 2}${name != null ? '&amp;name=' + name : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
               class="page-link">Next</a>
           </li>
           <li th:class="${page.number + 1 == page.totalPages ? 'page-item disabled' : 'page-item'}">
-            <a th:href="@{|/product/list?pageNo=${page.totalPages}${cid != null ? '&amp;cid=' + cid : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
+            <a th:href="@{|/product/search?pageNo=${page.totalPages}${name != null ? '&amp;name=' + name : ''}${sortType != null ? '&amp;sortType=' + sortType : ''}|}"
               class="page-link">Last</a>
           </li>
         </ul>

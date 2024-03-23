@@ -17,8 +17,8 @@
 
 	<div class="order-detail-home" th:object="${order}">
 		<div class="order-detail-title">
-			<h1>Mã đặt hàng: [[*{id}]]</h1>
-			<h1>Tổng tiền: [[*{totalAmount}]]</h1>
+			<h4>Mã đặt hàng: [[*{id}]]</h4>
+			<h4>Tổng tiền: [[*{totalAmount}]]</h4>
 		</div>
 		<div>
 			<span>Số điện thoại: [[*{phoneNumber}]]</span><br>
@@ -26,7 +26,7 @@
 		</div>
 		<div>
 			<small>Ngày đặt hàng: [[*{createDate}]]</small>
-			<button th:disabled="${order.status != 'confirmed'}">Hủy đơn hàng</button>
+			<button th:disabled="${order.status != 'confirmed'}" th:attr="ng-click=@{|cart.cancelOrder(*{id})|}">Hủy đơn hàng</button>
 		</div>
 	</div>
 	<div class="order-detail-product-section" th:object="${order}">

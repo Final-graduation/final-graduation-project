@@ -8,20 +8,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding-bottom: 5px;
 }
 
 .order-detail-home {
   width: 70%;
   margin: 0 auto;
   border-bottom: 2px solid #000;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .order-detail-home span,
 .order-detail-home small,
 .order-detail-home h1,
 .order-detail-home h4{
   color: grey;
+  margin-bottom: 2px;
 }
 
 .order-detail-home button,
@@ -44,7 +45,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid grey;
 }
 
 .order-detail-product div:first-child {
@@ -70,6 +71,12 @@
   text-align: center;
   color: grey;
   cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.order-list-menu a:first-child,
+.order-list-menu a:nth-child(2) {
+  text-align: left;
 }
 
 .no-order {

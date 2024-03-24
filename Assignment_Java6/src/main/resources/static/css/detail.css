@@ -12,7 +12,8 @@
 .detail-container > .flex-left > .main-img{
   width: 400px;
   height: 400px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: 50% 50%;
 }
 
 .thumbnail-container {
@@ -24,7 +25,8 @@
 .thumbnail-container img {
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: 50% 50%;
 }
 
 .flex-right > div {

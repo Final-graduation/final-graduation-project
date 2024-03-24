@@ -58,7 +58,7 @@ public class ProductController {
 										@RequestParam("cid") Optional<String> cid,
 										@RequestParam("sortType") Optional<String> sortType,
 										@RequestParam(defaultValue = "1") int pageNo,
-										@RequestParam(defaultValue = "3") int pageSize) {
+										@RequestParam(defaultValue = "10") int pageSize) {
 		Sort sort;
 		Page<Product> page;
 		if (sortType.isPresent() && sortType.get().equalsIgnoreCase("desc")) {
@@ -93,7 +93,7 @@ public class ProductController {
                     @RequestParam(required = false) List<Integer> categoryIds,
 										@RequestParam("sortType") Optional<String> sortType,
 										@RequestParam(defaultValue = "1") int pageNo,
-										@RequestParam(defaultValue = "3") int pageSize) {
+										@RequestParam(defaultValue = "10") int pageSize) {
     Page<Product> page;
 		String showCondition = "";
 		String categoryParam = "";
@@ -158,7 +158,7 @@ public class ProductController {
 	@RequestMapping("search")
 	public String search(Model model, @RequestParam("name") String name,
 											@RequestParam(defaultValue = "1") int pageNo,
-											@RequestParam(defaultValue = "3") int pageSize,
+											@RequestParam(defaultValue = "10") int pageSize,
 											@RequestParam("sortType") Optional<String> sortType) {
 		Sort sort;
 		if (sortType.isPresent() && sortType.get().equalsIgnoreCase("desc")) {

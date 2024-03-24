@@ -34,6 +34,24 @@ app.controller("cart-ctrl", function ($scope, $http) {
 	$scope.cart = {
 		items: [],
 
+		cancelOrder(id) {
+			const confirm = window.confirm('Bạn có muốn hủy đơn hàng này?');
+			if (confirm) {
+				$http.get(`/rest/orders/${id}`).then(resp => {
+					resp.data.status = "cancel";
+
+					$http.put(`/rest/orders/update`, resp.data).then(resp => {
+						location.href = '/order/list';
+						alert('Hủy đơn hàng thành công');
+					})
+				}).catch(e => {
+					console.log(e);
+				});
+			} else {
+				return;
+			}
+		},
+
 		//add items to cart
 		add(id, size, quantity) {
 			let item = this.items.find(item => item.id == id && item.size == size);
@@ -54,7 +72,7 @@ app.controller("cart-ctrl", function ($scope, $http) {
 			}
 		},
 
-		addAndPay(id, size, quantity)  {
+		addAndPay(id, size, quantity) {
 			let item = this.items.find(item => item.id == id && item.size == size);
 			if (item) {
 				item.qty++;
@@ -96,8 +114,8 @@ app.controller("cart-ctrl", function ($scope, $http) {
 		//return total of items
 		get count() {
 			return this.items.length
-				// .map(item => item.qty)
-				// .reduce((total, qty) => total += qty, 0);
+			// .map(item => item.qty)
+			// .reduce((total, qty) => total += qty, 0);
 		},
 
 		//return total money of items

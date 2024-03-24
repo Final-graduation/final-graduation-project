@@ -44,7 +44,11 @@ public class OrderRestController {
 	public List<Order> getAll() {
 		return orderService.findAll();
 	}
-	
+
+	@GetMapping("{id}")
+	public Order getOrder(@PathVariable Long id) {
+		return dao.findById(id).get();
+	}
 
 	@GetMapping("totalAmountCurrentDay")
 	public Object totalAmountCurrentDay() {

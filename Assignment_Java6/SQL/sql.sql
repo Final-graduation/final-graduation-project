@@ -24,7 +24,7 @@ create table products(
 	image1 nvarchar(30),
 	image2 nvarchar(30),
 	image3 nvarchar(30),
-	description nvarchar(255),
+	description nvarchar(max),
 	price float not null, 
 	createDate date not null,
 	available bit not null,

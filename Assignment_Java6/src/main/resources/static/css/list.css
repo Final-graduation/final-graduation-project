@@ -253,7 +253,7 @@ input[type="checkbox"]:checked:before {
   min-width: 70px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 10;
-  margin-left: -50px;
+  margin-left: -70px;
   margin-top: -148px;
 }
 

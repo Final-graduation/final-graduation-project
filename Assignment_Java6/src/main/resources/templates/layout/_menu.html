@@ -16,7 +16,7 @@
 	<div th:fragment="navbar">
 		<div class="home-nav w3-light-grey">
 			<div class="logo">
-				<a href="/"><i class="fa-solid fa-shirt fa-2x"></i></a>
+				<a href="/"><img src="/images/logo.png"></a>
 				<strong sec:authorize="isAuthenticated()">Hi <span  th:text="${name}"></span> <i class="fa-solid fa-hands-clapping"></i></strong>
 			</div>
 

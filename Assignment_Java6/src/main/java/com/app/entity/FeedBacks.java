@@ -36,12 +36,11 @@ public class FeedBacks {
     @Column(name = "review")
     private String review;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "username")
     private Account account;
 }

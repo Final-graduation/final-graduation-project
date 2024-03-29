@@ -4,28 +4,13 @@ app.controller("cart-ctrl", function ($scope, $http) {
 
 	$scope.reviewProduct = []
 
-	$scope.isRatingChecked = function(star, rating) {
-    return star === rating;
-	};
-
-	$scope.averageRating = function(reviewProduct) {
-    var totalStars = 0;
-    angular.forEach(reviewProduct, function(feedback) {
-        totalStars += feedback.star;
-    });
-
-		if (totalStars === 0) {
-			return 'chưa có dữ liệu'
-		} else {
-			return Math.round((totalStars / reviewProduct.length) * 10) / 10;
-		}
-	};
-
-
 	const productIdDetail = $('.feedback').attr('product-id');
-	$http.get(`/rest/feedbacks?id=${productIdDetail}`).then(resp =>{
-		$scope.reviewProduct = resp.data;
-	}).catch(e => console.log(e))
+
+	if(productIdDetail !== undefined) {
+		$http.get(`/rest/feedbacks?id=${productIdDetail}`).then(resp =>{
+			$scope.reviewProduct = resp.data;
+		}).catch(e => console.log(e))
+	}
 
 	$(".cart-hover").each(function () {
 		const itemId = $(this).attr("item-size-id");
@@ -55,6 +40,23 @@ app.controller("cart-ctrl", function ($scope, $http) {
 			}
 		});
 	})
+
+	$scope.isRatingChecked = function(star, rating) {
+    return star === rating;
+	};
+
+	$scope.averageRating = function(reviewProduct) {
+    var totalStars = 0;
+    angular.forEach(reviewProduct, function(feedback) {
+        totalStars += feedback.star;
+    });
+
+		if (totalStars === 0) {
+			return 'chưa có dữ liệu'
+		} else {
+			return Math.round((totalStars / reviewProduct.length) * 10) / 10;
+		}
+	};
 
 	$scope.detailReviews = []
 

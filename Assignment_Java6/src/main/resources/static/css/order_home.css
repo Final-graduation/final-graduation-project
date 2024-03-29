@@ -4,7 +4,7 @@
 
 }
 
-.order-detail-home div:last-child {
+.order-detail-home > div:nth-child(3) {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,6 +48,10 @@
   border-bottom: 1px solid grey;
 }
 
+.order-detail-product a {
+  text-decoration: none;
+}
+
 .order-detail-product div:first-child {
   display: flex;
   align-items: center;
@@ -89,4 +93,86 @@
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.feedback-modal {
+  display: none !important;
+}
+
+.feedback-modal.active {
+  display: block !important;
+}
+
+.feedback-container {
+  width: 500px;
+  padding: 10px;
+  height: 182px;
+  overflow: auto;
+}
+
+.feedback-container p{
+  text-align: center;
+  line-height: 172px;
+}
+
+.feedback-close {
+  display: block;
+  float: right;
+  cursor: pointer;
+  font-size: larger;
+}
+
+.feedback-detail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: dashed;
+}
+
+.feedback-detail img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.feedback-detail button {
+  width: 70px;
+  border: none;
+  background-color: var(--primary-color);
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+.feedback-detail textarea {
+  width: 180px;
+  font-size: 11px;
+}
+
+.rating {
+  display: inline-block;
+  position: relative;
+  left: -10px;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  padding: 0 3px;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.rating label:before {
+  content: '\2605';
+}
+
+.rating input:checked ~ label {
+  color: #ffcc00;
 }

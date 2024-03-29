@@ -67,6 +67,7 @@ create table orderDetails(
 	product_id int not null,
 	quantity int not null,
 	size varchar(5) not null,
+	reviewstatus bit,
 	foreign key(order_id) references orders(id),
 	foreign key(product_id) references products(id)
 )
@@ -88,6 +89,7 @@ create table feedBacks(
 	id int identity(1,1) primary key not null,
 	star int not null,
 	review nvarchar(255),
+	reviewdate date,
 	product_id int not null,
 	username varchar(20) not null,
 	foreign key(product_id) references products(id),

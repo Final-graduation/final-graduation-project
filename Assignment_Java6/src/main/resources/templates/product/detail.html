@@ -51,6 +51,28 @@
     <h4>CHI TIẾT SẢN PHẨM.</h4>
     <p>[[${product.description}]]</p>
   </div>
+  <div class="feedback" th:product-id="${product.id}">
+    <h4>ĐÁNH GIÁ SẢN PHẨM ({{averageRating(reviewProduct)}} <i class="fa-solid fa-star"></i>)</h4>
+    <span class="w3-text-red">({{reviewProduct.length}})</span> <span> đánh giá</span><br>
+    <div class="feedback-container-detail" ng-if="reviewProduct.length === 0">
+      <p>Chưa có đánh giá nào.</p>
+    </div>
+    <div class="feedback-container-detail" ng-repeat="feedback in reviewProduct">
+      <i class="fa-solid fa-user-tie"></i>
+      <div>
+        <span>{{feedback.account.fullname}}</span><br>
+        <div class="rating">
+          <input type="radio" id="{{'star5-' + $index}}" name="{{'rating2-' + $index}}" value="5" ng-checked="isRatingChecked(feedback.star, 5)"><label for="{{'star5-' + $index}}"></label>
+          <input type="radio" id="{{'star4-' + $index}}" name="{{'rating2-' + $index}}" value="4" ng-checked="isRatingChecked(feedback.star, 4)"><label for="{{'star4-' + $index}}"></label>
+          <input type="radio" id="{{'star3-' + $index}}" name="{{'rating2-' + $index}}" value="3" ng-checked="isRatingChecked(feedback.star, 3)"><label for="{{'star3-' + $index}}"></label>
+          <input type="radio" id="{{'star2-' + $index}}" name="{{'rating2-' + $index}}" value="2" ng-checked="isRatingChecked(feedback.star, 2)"><label for="{{'star2-' + $index}}"></label>
+          <input type="radio" id="{{'star1-' + $index}}" name="{{'rating2-' + $index}}" value="1" ng-checked="isRatingChecked(feedback.star, 1)"><label for="{{'star1-' + $index}}"></label>
+        </div> <br>
+        <small>{{feedback.reviewday}}</small><br>
+        <span>{{feedback.review}}</span>
+      </div>
+    </div>
+  </div>
 
   <div class="recommend-product">
     <h4>SẢN PHẨM TƯƠNG TỰ</h4>
@@ -81,50 +103,17 @@
       });
     });
 
-
-    // Lấy tất cả các phần tử có class là "description"
-    const descriptions = document.querySelectorAll('.description');
-
-    // Duyệt qua từng phần tử description
-    descriptions.forEach(description => {
-      // Thêm phần tử xuống dòng vào đầu phần tử description
-      description.insertAdjacentHTML('afterbegin', '<br>');
-
-      // Kiểm tra xem nội dung có chứa kí tự "." không
-      if (description.textContent.includes('.') ) {
-        // Tạo một mảng từ chuỗi nội dung bằng cách tách nội dung khi gặp kí tự "."
-        const sentences = description.textContent.split('.');
-
-        // Tạo một mảng mới để chứa các câu đã được chia
-        const newContent = [];
-
-        // Duyệt qua từng câu
-        sentences.forEach((sentence, index) => {
-          // Thêm câu vào mảng mới
-          newContent.push(sentence.trim());
-
-          // Nếu không phải câu cuối cùng, thêm thẻ <br> vào mảng mới
-          if (index < sentences.length - 1) {
-            newContent.push(document.createElement('br'));
-          }
-        });
-
-        // Xóa nội dung cũ trong phần tử description
-        description.innerHTML = '';
-
-        // Thêm nội dung mới vào phần tử description
-        newContent.forEach(content => {
-          // Nếu content là một thẻ <br>, thêm vào mà không cần escape
-          if (content.tagName === 'BR') {
-            description.appendChild(content);
-          } else {
-            // Nếu không phải là thẻ <br>, thêm vào bằng cách escape HTML
-            description.appendChild(document.createTextNode(content));
-          }
-        });
-      }
+    $(document).ready(function() {
+      $(".description p").each(function() {
+        var text = $(this).text();
+        var newText = text.replace(/\.\s*/g, ".- ");
+        newText = "- " + newText;
+        newText = newText.replace(/- $/, "");
+        newText = newText.replace(/\.$/, "");
+        newText = newText.replace(/\./g, "<br>");
+        $(this).html(newText);
+      });
     });
-
   </script>
 </body>
 

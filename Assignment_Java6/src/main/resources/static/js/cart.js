@@ -2,6 +2,31 @@ const app = angular.module("cart", []);
 
 app.controller("cart-ctrl", function ($scope, $http) {
 
+	$scope.reviewProduct = []
+
+	$scope.isRatingChecked = function(star, rating) {
+    return star === rating;
+	};
+
+	$scope.averageRating = function(reviewProduct) {
+    var totalStars = 0;
+    angular.forEach(reviewProduct, function(feedback) {
+        totalStars += feedback.star;
+    });
+
+		if (totalStars === 0) {
+			return 'chưa có dữ liệu'
+		} else {
+			return Math.round((totalStars / reviewProduct.length) * 10) / 10;
+		}
+	};
+
+
+	const productIdDetail = $('.feedback').attr('product-id');
+	$http.get(`/rest/feedbacks?id=${productIdDetail}`).then(resp =>{
+		$scope.reviewProduct = resp.data;
+	}).catch(e => console.log(e))
+
 	$(".cart-hover").each(function () {
 		const itemId = $(this).attr("item-size-id");
 		const url = "/rest/products/size/" + itemId;
@@ -30,6 +55,46 @@ app.controller("cart-ctrl", function ($scope, $http) {
 			}
 		});
 	})
+
+	$scope.detailReviews = []
+
+	$scope.loadDetailReview = function(id) {
+		$http.get(`/rest/orders/detail?id=${id}`).then(resp => {
+			const needReivew = resp.data.filter(item => item.reviewstatus === false);
+			$scope.detailReviews = needReivew;
+		}).catch(e => {
+			console.log(e);
+		});
+	}
+
+	$scope.feedback = {
+		reviewday: new Date(),
+		star: '',
+		review: '',
+		product: {
+			id: null
+		},
+		account: {
+			username: null
+		}
+	}
+
+	$scope.sendReview = function(order, id, index) {
+		order.reviewstatus = true;
+		let review = angular.copy($scope.feedback);
+		review.product.id =  $(`#review-product-id-${id}`).val();
+		review.account.username = $('#review-username').val();
+		review.star = $('input[name="rating' + id + '"]:checked').val();
+		review.review =  $(`#review-textarea-${id}`).val();
+
+		$http.post('/rest/feedbacks/send', review).then(resp => {
+			$scope.detailReviews.splice(index, 1);
+			$http.put('/rest/orders/updateDetail', order);
+			alert("Đánh giá thành công!")
+		}).catch(e => {
+			console.log(e)
+		})
+	}
 
 	$scope.cart = {
 		items: [],
@@ -157,7 +222,8 @@ app.controller("cart-ctrl", function ($scope, $http) {
 				return {
 					product: { id: item.id },
 					size: item.size,
-					quantity: item.qty
+					quantity: item.qty,
+					reviewstatus: false
 				}
 			});
 		},

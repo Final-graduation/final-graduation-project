@@ -34,7 +34,7 @@
 			<div>
 				<img alt="images" th:src="@{|/images/*{product.image}|}" style="max-width: 100px;">
 				<div>
-					<b>[[*{product.name}]]</b><br>
+					<a th:href="@{|/product/*{product.id}|}"><b>[[*{product.name}]]</b></a><br>
 					<small>Size: [[*{size}]]</small>
 				</div>
 			</div>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.OrderDAO;
+import com.app.dao.OrderDetailDAO;
 import com.app.entity.Order;
 import com.app.entity.OrderDetail;
 import com.app.entity.Product;
@@ -31,6 +32,9 @@ public class OrderRestController {
 	
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	OrderDetailDAO ddao;
 
 	@Autowired
 	OrderDAO dao;
@@ -78,5 +82,10 @@ public class OrderRestController {
 	@PutMapping("update")
 	public Order update(@RequestBody Order order) {
 		return dao.save(order);
+	}
+
+	@PutMapping("updateDetail")
+	public OrderDetail putMethodName( @RequestBody OrderDetail orderDetail) {		
+		return ddao.save(orderDetail);
 	}
 }

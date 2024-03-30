@@ -20,6 +20,7 @@ public class OrderDetail implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	Integer quantity;
+	Boolean reviewstatus;
 	String size;
 	@ManyToOne
 	@JoinColumn(name = "product_id")

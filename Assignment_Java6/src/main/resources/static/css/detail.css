@@ -30,7 +30,7 @@
 }
 
 .flex-right > div {
-  margin-top: 150px;
+  margin-top: 110px;
 }
 
 .flex-right > div button {
@@ -84,4 +84,28 @@
 
 .add-border {
   border: 1px solid #000;
+}
+
+.feedback {
+  margin: 20px 100px;
+}
+
+.feedback > h4 > i{
+  font-size: larger;
+  color: #ffcc00;
+}
+
+.feedback-container-detail {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.feedback-container-detail i {
+  font-size: 50px;
+}
+
+.feedback-container-detail small {
+  color: #c2c2c2;
 }

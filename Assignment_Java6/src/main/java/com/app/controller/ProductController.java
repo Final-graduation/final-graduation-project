@@ -146,7 +146,7 @@ public class ProductController {
 
 		if (categoryIds == null) {
 			model.addAttribute("cname", "$" + fromPrice + " to " + "$" + toPrice);
-		} else if(categoryIds != null && (fromPrice != 0 || toPrice != 1000000)) {
+		} else if(categoryIds != null && (fromPrice != 0 || toPrice != 5000000)) {
 			model.addAttribute("cname", showCondition + " $" + fromPrice + " to " + "$" + toPrice);
 		} else {
 			model.addAttribute("cname", showCondition);

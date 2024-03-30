@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Object[]> getRevenueForAWeek() {
+	public List<Object[]> getRevenueForAWeek(Date start, Date end) {
 		return dao.getRevenueByDateRange(start, end);
 	}
 }

@@ -9,7 +9,7 @@
           <i class="fa-solid fa-ellipsis"></i>
         </p>
         <p>
-          <strong>${{sale[0]}}</strong>
+          <strong>{{sale[0] | currency}}</strong>
         </p>
       </div>
       <div class="overview-box">
@@ -46,12 +46,23 @@
     <div class="right-content">
         <strong class="chart-title">Top 3 best-selling products this week</strong>
         <canvas id="top3product"></canvas>
-
-      
     </div>
   </div>
 
-  <div>
+  <div class="revenue-filter">
+    <div class="start-date">
+      <span>From: </span>
+      <input type="date" ng-model="startDate">
+    </div>
+    <div class="end-date">
+      <span>To: </span>
+      <input type="date" ng-model="endDate">
+    </div>
+    <div>
+      <button ng-click="filterAvenue()">View statistics</button>
+    </div>
+  </div>
+  <div class="chart-revenue">
     <canvas id="revenue"></canvas>
   </div>
 </div>

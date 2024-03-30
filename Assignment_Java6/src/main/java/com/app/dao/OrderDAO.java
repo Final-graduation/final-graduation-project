@@ -16,17 +16,7 @@ import com.app.entity.Order;
 
 @Repository
 public interface OrderDAO extends JpaRepository<Order, Long>{
-//	//xem phía site
-//	List<Order> findAllByAccountAndStatus(Account user,Boolean status);
-//	
-//	List<Order> findAllByAccountAndStatusAndOrdercreatedate(Account user,Boolean status,Date xemtheongay);
-//	
-//	
-//	//xem phía admin
-//	List<Order> findAllByStatus(Boolean status);
-//	
-//	List<Order> findAllByStatusAndOrdercreatedate(Boolean status,Date xemtheongay);
-	
+	List<Order> findAllByOrderByCreateDateDesc();	
 	
 	@Query(value="select o from Order o where o.account.username = ?1 and o.status = ?2")
 	List<Order> findByUsername(String username, String status);

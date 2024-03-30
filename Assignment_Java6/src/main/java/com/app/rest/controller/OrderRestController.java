@@ -6,6 +6,7 @@ import java.util.Map;
 
 // import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,7 +47,7 @@ public class OrderRestController {
 
 	@GetMapping("/all")
 	public List<Order> getAll() {
-		return orderService.findAll();
+		return dao.findAllByOrderByCreateDateDesc();
 	}
 
 	@GetMapping("{id}")
@@ -75,8 +76,9 @@ public class OrderRestController {
 	}
 
 	@GetMapping("revenueAWeek")
-	public List<Object[]> getRevenueForAWeek() {
-		return orderService.getRevenueForAWeek();
+	public List<Object[]> getRevenueForAWeek( @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
+		return orderService.getRevenueForAWeek(start, end);
 	}
 	
 	@PutMapping("update")

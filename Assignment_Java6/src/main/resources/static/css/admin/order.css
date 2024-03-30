@@ -33,12 +33,13 @@
 }
 
 .order-status > .confirmed{
-  background-color: #4ABDAC;
+  background-color: var(--primary-color);
 }
 
 
 .order-status > .delivering{
-  background-color: #FC4A1A;
+  background-color: #345DBB;
+  color: #fff;
 }
 
 .order-status > .completed{
@@ -47,4 +48,5 @@
 
 .order-status > .cancel{
   background-color: #D7263D;
+  color: #fff;
 }

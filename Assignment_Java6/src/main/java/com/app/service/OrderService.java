@@ -27,6 +27,6 @@ public interface OrderService {
 
 	List<OrderDetail> getOrderDetail(Long orderId);
 
-	List<Object[]> getRevenueForAWeek();
+	List<Object[]> getRevenueForAWeek(Date start, Date end);
 
 }

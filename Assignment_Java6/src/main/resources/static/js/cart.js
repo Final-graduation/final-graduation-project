@@ -1,6 +1,22 @@
 const app = angular.module("cart", []);
 
 app.controller("cart-ctrl", function ($scope, $http) {
+	$scope.userHome = {};
+
+	const usernameProfile = $('#user-profile').val();
+	if (usernameProfile !== undefined) {
+		$http.get(`/rest/accounts/profile?username=${usernameProfile}`).then( resp => {
+			console.log(resp.data)
+			$scope.userHome = resp.data;
+		})
+	}
+		
+	$scope.updateUser = function() {
+		const user = angular.copy($scope.userHome);
+		$http.put('/rest/accounts/update', user).then(resp => {
+			alert('Cập nhật tài khoản thành công!')
+		}).catch(e => console.log(e));
+	}
 
 	$scope.reviewProduct = []
 

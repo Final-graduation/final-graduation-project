@@ -124,14 +124,14 @@ html {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .dropdown-content-home a {
   color: black;
-  padding: 12px 16px;
+  padding: 10px 10px;
   text-decoration: none;
   display: block;
 }
@@ -142,4 +142,78 @@ html {
 
 .dropdown-home:hover .dropdown-content-home {
   display: block;
+}
+
+.cart-relative{
+	position: relative;
+}
+
+.cart-relative > span {
+	position: absolute;
+	top: -9.5px;
+	color: #D80C18;
+	font-weight: 900;
+}
+/* Style the dropdown button user */
+.dropbtn-user {
+  cursor: pointer;
+}
+
+.dropbtn-user i{
+	width: 40px;
+	text-align: center;
+}
+
+.dropbtn-user:hover {
+  color: var(--primary-color);
+}
+
+.dropdown-user {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-user {
+  display: none;
+  position: absolute;
+	right: 0;
+	top: 17px;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content-user a {
+  color: black;
+  padding: 10px 10px;
+  text-decoration: none;
+  display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.dropdown-content-user a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-user:hover .dropdown-content-user {
+  display: block;
+}
+
+
+
+.user-container {
+	margin: 20px 300px;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.user-container button {
+	float: right;
+}
+
+.user-container h2 {
+	margin-bottom: 20px;
+	text-align: center;
 }

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
@@ -35,4 +38,10 @@ public class HomeController {
 	public String admin() {
 		return "redirect:/admin/index.html";
 	}
+
+	@GetMapping("/my-profile")
+	public String getProfile() {
+		return "login/user";
+	}
+	
 }

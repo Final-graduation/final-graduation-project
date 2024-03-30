@@ -38,4 +38,13 @@ public class AccountRegistrationService {
 
         userDetailsManager.createUser(user);
     }
+
+    public void updateAccount(Account account) {
+        UserDetails existingUser = userDetailsManager.loadUserByUsername(account.getUsername());
+        UserDetails updatedUser = User.withUserDetails(existingUser)
+                .password(passwordEncoder.encode(account.getPassword()))
+                .build();
+
+        userDetailsManager.updateUser(updatedUser);
+    }
 }

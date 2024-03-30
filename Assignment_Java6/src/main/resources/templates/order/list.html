@@ -32,7 +32,7 @@
 			</div>
 			<div>
 				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
-				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+				<a th:href="@{|/order/detail/${order.id}|}">Chi tiết <i class="fa-solid fa-angles-right"></i></a>
 			</div>
 		</div>
 		<div th:if="${#lists.isEmpty(orders)}" class="no-order">
@@ -54,7 +54,7 @@
 			</div>
 			<div>
 				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
-				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+				<a th:href="@{|/order/detail/${order.id}|}">Chi tiết <i class="fa-solid fa-angles-right"></i></a>
 			</div>
 		</div>
 		<div th:if="${#lists.isEmpty(deliveringOrders)}" class="no-order">
@@ -77,8 +77,8 @@
 			<div>
 				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
 				<div>
-					<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
-					<a href="javascript:void(0)" class="feedback" th:attr="ng-click=@{|loadDetailReview(${order.id})|}">Đánh giá</a>
+					<a th:href="@{|/order/detail/${order.id}|}">Chi tiết <i class="fa-solid fa-angles-right"></i></a>
+					<a href="javascript:void(0)" class="feedback-btn" th:attr="ng-click=@{|loadDetailReview(${order.id})|}"><i class="fa-regular fa-star-half-stroke"></i> Đánh giá</a>
 				</div>
 			</div>
 		</div>
@@ -99,7 +99,7 @@
 			</div>
 			<div>
 				<small>Ngày đặt hàng: [[${order.createDate}]]</small>
-				<a th:href="@{|/order/detail/${order.id}|}">Xem chi tiết</a>
+				<a th:href="@{|/order/detail/${order.id}|}">Chi tiết <i class="fa-solid fa-angles-right"></i></a>
 			</div>
 		</div>
 		<div th:if="${#lists.isEmpty(cancelOrders)}" class="no-order">
@@ -128,7 +128,7 @@
 					</div>
 					<textarea id="{{'review-textarea-' + order.product.id}}" cols="20" rows="4"></textarea><br>
 				</div>
-				<button ng-click="sendReview(order, order.product.id, $index)">Gửi</button>
+				<button ng-click="sendReview(order, order.product.id, $index)"><i class="fa-regular fa-paper-plane"></i> Gửi</button>
 			</div>
 			<div ng-if="detailReviews.length == 0">
 				<p>Đã hết sản phẩm để đánh giá.</p>
@@ -148,7 +148,7 @@
 				$("#" + targetId + "-section").removeClass("d-none");
 			});
 
-			$('.feedback').on('click', function() {
+			$('.feedback-btn').on('click', function() {
 				$('.feedback-modal').addClass('active');
 			})
 

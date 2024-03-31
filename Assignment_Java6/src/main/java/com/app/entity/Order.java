@@ -32,6 +32,7 @@ public class Order  implements Serializable{
 	String address;
 	String phoneNumber;
 	Float totalAmount;
+	Boolean pay;
 	String status;
 	@Temporal(TemporalType.DATE)
 	Date createDate = new Date();

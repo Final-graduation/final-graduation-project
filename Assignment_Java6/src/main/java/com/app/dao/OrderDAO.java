@@ -16,9 +16,9 @@ import com.app.entity.Order;
 
 @Repository
 public interface OrderDAO extends JpaRepository<Order, Long>{
-	List<Order> findAllByOrderByCreateDateDesc();	
+	List<Order> findAllByOrderByIdDesc();	
 	
-	@Query(value="select o from Order o where o.account.username = ?1 and o.status = ?2")
+	@Query(value="select o from Order o where o.account.username = ?1 and o.status = ?2 ORDER BY o.id DESC")
 	List<Order> findByUsername(String username, String status);
 
 	@Query("SELECT SUM(o.totalAmount) AS totalAmount, COUNT(o.id) AS orderCount FROM Order o WHERE o.createDate = ?1")

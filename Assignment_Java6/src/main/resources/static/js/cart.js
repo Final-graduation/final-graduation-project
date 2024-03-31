@@ -1,6 +1,6 @@
 const app = angular.module("cart", []);
 
-app.controller("cart-ctrl", function ($scope, $http) {
+app.controller("cart-ctrl", function ($scope, $http, $location) {
 	$scope.userHome = {};
 
 	const usernameProfile = $('#user-profile').val();
@@ -234,6 +234,7 @@ app.controller("cart-ctrl", function ($scope, $http) {
 			username: $("#username").val()
 		},
 		status: 'confirmed',
+		pay: false,
 		totalAmount: $scope.cart.amount,
 		get orderDetails() {
 			return $scope.cart.items.map(item => {
@@ -247,17 +248,36 @@ app.controller("cart-ctrl", function ($scope, $http) {
 		},
 
 		purchase() {
-			let order = angular.copy(this);
-			console.log(order);
-			$http.post("/rest/orders", order).then(resp => {
-				alert("Đặt hàng thành công!");
-				$scope.cart.clear();
-				location.href = "/order/detail/" + resp.data.id;
-			}).catch(error => {
-				alert("Có lỗi, vui lòng thử lại!")
-				console.log(error)
-			})
-		}
+			const payment = $('#payment').val();
+			if (payment === '2') {
+				const bank = selectedValue = $('input[name="bank"]:checked').val();
+				const money = parseInt($scope.cart.amount);
+				$http.post(`/createPayment?amount=${money}&bankCode=${bank}`).then(resp => {
+					location.href = resp.data.data;
+					let order = angular.copy(this);
+					order.pay = true;
+					$http.post("/rest/orders", order).then(resp => {
+						console.log('success!')
+					}).catch(error => {
+						console.log(error);
+					})
+				}).catch(e => console.log(e));
+			} else {
+				let order = angular.copy(this);
 
+				$http.post("/rest/orders", order).then(resp => {
+					alert("Đặt hàng thành công!");
+					$scope.cart.clear();
+					location.href = "/order/detail/" + resp.data.id;
+				}).catch(error => {
+					console.log(error);
+				})
+			}
+		}
+	}
+
+	if ($location.absUrl().includes('/order/list') && $location.absUrl().includes('vnp_ResponseCode')){
+		alert('Đặt hàng thành công');
+		$scope.cart.clear();
 	}
 })

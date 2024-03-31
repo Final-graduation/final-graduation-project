@@ -55,6 +55,7 @@ create table orders(
 	username varchar(20) not null,
 	create_date datetime not null,
 	total_amount float not null,
+	pay bit,
 	address nvarchar(100) not null,
 	phone_number nvarchar(12) not null,
 	status varchar(30) not null,

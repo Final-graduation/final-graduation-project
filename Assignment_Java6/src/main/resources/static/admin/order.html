@@ -6,6 +6,7 @@
 				<th>Username</th>
 				<th>Order date</th>
 				<th>Total amount</th>
+				<th>Payment</th>
 				<th>Phone number</th>
 				<th>Address</th>
 				<th>Status</th>
@@ -14,10 +15,11 @@
 		</thead>
 		</tbody>
 		<tr ng-repeat="item in pager.items" class="table-product-row detail-row">
-			<td>{{$index + 1}}</td>
+			<td>{{item.id}}</td>
 			<td>{{item.account.username}}</td>
 			<td>{{item.createDate}}</td>
-			<td>{{item.totalAmount}}</td>
+			<td>{{item.totalAmount | currency}}</td>
+			<td>{{item.pay ? 'Paid' : 'Not Paid'}}</td>
 			<td>{{item.phoneNumber}}</td>
 			<td>{{item.address}}</td>
 			<td class="order-status">

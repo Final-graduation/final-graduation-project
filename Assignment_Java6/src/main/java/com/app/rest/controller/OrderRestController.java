@@ -47,7 +47,7 @@ public class OrderRestController {
 
 	@GetMapping("/all")
 	public List<Order> getAll() {
-		return dao.findAllByOrderByCreateDateDesc();
+		return dao.findAllByOrderByIdDesc();
 	}
 
 	@GetMapping("{id}")

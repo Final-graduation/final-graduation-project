@@ -80,3 +80,28 @@
   color: #2E8B57;
   font-size: larger;
 }
+
+.vn-pay {
+  display: none;
+}
+
+.vn-pay.active {
+  display: block;
+}
+
+.vn-pay input {
+  display: none;
+}
+
+.vn-pay label {
+  cursor: pointer;
+}
+
+.vn-pay input[type="radio"]:checked + label {
+  border: 2px solid #2E8B57;
+  border-radius: 10px;
+}
+
+#payment li {
+  padding: 10px 5px;
+}

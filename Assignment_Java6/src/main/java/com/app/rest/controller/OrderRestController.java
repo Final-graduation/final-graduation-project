@@ -55,6 +55,11 @@ public class OrderRestController {
 		return dao.findById(id).get();
 	}
 
+	@GetMapping("findId")
+	public List<Order> getOrderId(@RequestParam String id) {
+		return dao.findByIdLike(id);
+	}
+	
 	@GetMapping("totalAmountCurrentDay")
 	public Object totalAmountCurrentDay() {
 		return orderService.getTotalAmountCurrentDay();

@@ -28,4 +28,7 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 				"WHERE o.createDate BETWEEN ?1 AND ?2 " +
 				"GROUP BY o.createDate")
 	List<Object[]> getRevenueByDateRange(Date startDate, Date endDate);
+
+	@Query("SELECT o FROM Order o WHERE CAST(o.id AS string) LIKE CONCAT(?1, '%')")
+	List<Order> findByIdLike(String id);
 }

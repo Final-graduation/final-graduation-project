@@ -43,5 +43,9 @@ public class HomeController {
 	public String getProfile() {
 		return "login/user";
 	}
-	
+
+	@GetMapping("info")
+	public String getInfo() {
+		return "layout/info";
+	}
 }

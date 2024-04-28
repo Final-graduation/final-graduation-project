@@ -7,6 +7,17 @@ app.controller("order-ctrl", function($scope, $http){
 
 	const orderSection = $('.order-detail-section');
 
+	$scope.findOrder = function() {
+		const id = document.getElementById('order_id').value;
+
+		$http.get(`/rest/orders/findId?id=${id}`).then(resp => {
+			$scope.items = resp.data;
+			console.log(resp.data)
+		}).catch(error => {
+			console.log(error);
+		})
+	}
+
 	$http.get("/rest/orders/all").then(resp => {
 		$scope.items = resp.data;
 	})

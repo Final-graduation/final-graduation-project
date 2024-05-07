@@ -1,5 +1,13 @@
 <section class="w3-animate-opacity customer-section">
-	<table class="w3-table-all w3-animate-opacity">
+	<div class="order-filter">
+		<input type="number" id="order_id" placeholder="Enter orderId...">
+		<button ng-click="findOrder()">Find</button>
+	</div>
+
+	<div ng-if="!pager.items || pager.items.length === 0">
+    <p class="w3-text-red">No order found!</p>
+	</div>
+	<table class="w3-table-all w3-animate-opacity" ng-if="pager.items.length > 0">
 		<thead>
 			<tr>
 				<th>No.</th>
@@ -31,7 +39,7 @@
 		</tr>
 		</tbody>
 	</table>
-	<div class="w3-center admin-product-navigator">
+	<div class="w3-center admin-product-navigator" ng-if="pager.items.length > 0">
 		<div class="w3-bar">
 			<button class="w3-bar-item" ng-click="pager.first()"><i class="fa-solid fa-backward-step"></i></button>
 			<button class="w3-bar-item" ng-click="pager.prev()"><i class="fa-solid fa-backward-fast"></i></button>
